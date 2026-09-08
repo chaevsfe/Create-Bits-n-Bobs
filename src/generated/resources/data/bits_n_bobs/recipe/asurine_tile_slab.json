@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_enabled",
+      "feature": "tiles"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "group": "asurine_tile_slab",
+  "key": {
+    "X": "bits_n_bobs:asurine_tiles"
+  },
+  "pattern": [
+    "XXX"
+  ],
+  "result": {
+    "count": 6,
+    "id": "bits_n_bobs:asurine_tile_slab"
+  }
+}

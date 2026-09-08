@@ -1,0 +1,182 @@
+package com.kipti.bnb.registry.content;
+
+import com.cake.struts.content.block.StrutBlockEntity;
+import com.cake.struts.content.block.StrutBlockEntityRenderer;
+import com.kipti.bnb.content.decoration.truss.TrussFluidPipeBlockEntity;
+import com.kipti.bnb.content.kinetics.chain_pulley.ChainPulleyBlockEntity;
+import com.kipti.bnb.content.kinetics.chain_pulley.ChainPulleyRenderer;
+import com.kipti.bnb.content.kinetics.cogwheel_carriage.block.CogwheelChainCarriageBlockEntity;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.migration.MigratingSimpleKineticBlockEntity;
+import com.kipti.bnb.content.kinetics.flywheel_bearing.FlywheelBearingBlockEntity;
+import com.kipti.bnb.content.kinetics.flywheel_bearing.FlywheelBearingBlockEntityRenderer;
+import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelBlockEntity;
+import com.kipti.bnb.content.kinetics.throttle_lever.ThrottleLeverBlockEntity;
+import com.kipti.bnb.content.kinetics.throttle_lever.ThrottleLeverBlockEntityRenderer;
+import com.kipti.bnb.content.trinkets.light.headlamp.HeadlampBlockEntity;
+import com.kipti.bnb.content.trinkets.light.headlamp.rendering.pipeline.block_entity.HeadlampBlockEntityRenderer;
+import com.kipti.bnb.content.trinkets.nixie.foundation.GenericNixieDisplayBlockEntity;
+import com.kipti.bnb.content.trinkets.nixie.foundation.GenericNixieDisplayBoardRenderer;
+import com.kipti.bnb.registry.content.blocks.BnbKineticBlocks;
+import com.kipti.bnb.registry.content.blocks.BnbTrinketBlocks;
+import com.kipti.bnb.registry.content.blocks.deco.BnbDecorativeBlocks;
+import com.kipti.bnb.registry.content.blocks.encased.BnbEncasedBlockLists;
+import com.kipti.bnb.registry.content.blocks.encased.BnbExtraEncasedBlocks;
+import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedFlangedCogRenderer;
+import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedFlangedCogVisual;
+import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelRenderer;
+import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelVisual;
+import com.kipti.bnb.foundation.client.GenericKineticVisuals;
+import com.zurrtum.create.client.content.kinetics.base.KineticBlockEntityRenderer;
+import com.zurrtum.create.client.content.kinetics.base.ShaftRenderer;
+import com.zurrtum.create.client.content.kinetics.base.SingleAxisRotatingVisual;
+import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedCogVisual;
+import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedLargeCogRenderer;
+import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedSmallCogRenderer;
+import com.zurrtum.create.AllBlocks;
+import com.zurrtum.create.content.kinetics.base.KineticBlockEntity;
+import com.zurrtum.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
+import com.kipti.bnb.registrate.entry.BlockEntityEntry;
+
+import static com.kipti.bnb.CreateBitsnBobs.REGISTRATE;
+
+public class BnbBlockEntities {
+
+    public static final BlockEntityEntry<HeadlampBlockEntity> HEADLAMP = REGISTRATE.blockEntity(
+                    "headlamp",
+                    HeadlampBlockEntity::new
+            )
+            
+            .validBlock(BnbTrinketBlocks.HEADLAMP)
+            .renderer(() -> HeadlampBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<StrutBlockEntity> GIRDER_STRUT = REGISTRATE
+            .blockEntity("girder_strut", StrutBlockEntity::new)
+            .validBlocks(
+                    BnbDecorativeBlocks.GIRDER_STRUT,
+                    BnbDecorativeBlocks.WEATHERED_GIRDER_STRUT,
+                    BnbDecorativeBlocks.CABLE_GIRDER_STRUT
+            )
+            .renderer(() -> StrutBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<KineticBlockEntity> ENCASED_SHAFT = REGISTRATE
+            .blockEntity("encased_shaft", KineticBlockEntity::new)
+            .visual(() -> SingleAxisRotatingVisual::shaft, false)
+            .validBlocks(
+                    BnbDecorativeBlocks.WEATHERED_METAL_GIRDER_ENCASED_SHAFT,
+                    BnbExtraEncasedBlocks.INDUSTRIAL_IRON_ENCASED_SHAFT,
+                    BnbExtraEncasedBlocks.WEATHERED_IRON_ENCASED_SHAFT,
+                    BnbDecorativeBlocks.METAL_TRUSS_SHAFT
+            )
+            .renderer(() -> ShaftRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_FLANGED_COGWHEEL = REGISTRATE
+            .blockEntity("encased_flanged_cogwheel", SimpleKineticBlockEntity::new)
+            .visual(() -> BnbEncasedFlangedCogVisual::small, false)
+            .validBlocks(BnbEncasedBlockLists.ENCASED_FLANGED_COGWHEEL.toArray())
+            .renderer(() -> BnbEncasedFlangedCogRenderer::small)
+            .register();
+
+    public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_LARGE_FLANGED_COGWHEEL = REGISTRATE
+            .blockEntity("encased_large_flanged_cogwheel", SimpleKineticBlockEntity::new)
+            .visual(() -> BnbEncasedFlangedCogVisual::large, false)
+            .validBlocks(BnbEncasedBlockLists.ENCASED_LARGE_FLANGED_COGWHEEL.toArray())
+            .renderer(() -> BnbEncasedFlangedCogRenderer::large)
+            .register();
+
+    public static final BlockEntityEntry<SimpleKineticBlockEntity> SIMPLE_KINETIC = REGISTRATE.blockEntity(
+                    "simple_kinetic",
+                    SimpleKineticBlockEntity::new
+            )
+            .visual(() -> GenericKineticVisuals::registeredModel, true)
+            .validBlocks(
+                    BnbKineticBlocks.SMALL_FLANGED_COGWHEEL,
+                    BnbKineticBlocks.LARGE_FLANGED_COGWHEEL
+            )
+            .renderer(() -> KineticBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_COGWHEEL = REGISTRATE
+            .blockEntity("encased_cogwheel", SimpleKineticBlockEntity::new)
+            .visual(() -> EncasedCogVisual::small, false)
+            .validBlocks(
+                    BnbExtraEncasedBlocks.INDUSTRIAL_IRON_ENCASED_COGWHEEL,
+                    BnbExtraEncasedBlocks.WEATHERED_IRON_ENCASED_COGWHEEL
+            )
+            .renderer(() -> EncasedSmallCogRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_LARGE_COGWHEEL = REGISTRATE
+            .blockEntity("encased_large_cogwheel", SimpleKineticBlockEntity::new)
+            .visual(() -> EncasedCogVisual::large, false)
+            .validBlocks(
+                    BnbExtraEncasedBlocks.INDUSTRIAL_IRON_ENCASED_LARGE_COGWHEEL,
+                    BnbExtraEncasedBlocks.WEATHERED_IRON_ENCASED_LARGE_COGWHEEL
+            )
+            .renderer(() -> EncasedLargeCogRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<GenericNixieDisplayBlockEntity> GENERIC_NIXIE_DISPLAY = REGISTRATE.blockEntity(
+                    "generic_nixie_display",
+                    GenericNixieDisplayBlockEntity::new
+            )
+            .validBlocks(BnbTrinketBlocks.NIXIE_BOARD, BnbTrinketBlocks.LARGE_NIXIE_TUBE)
+            .validBlocks(BnbTrinketBlocks.DYED_NIXIE_BOARD.toArray())
+            .validBlocks(BnbTrinketBlocks.DYED_LARGE_NIXIE_TUBE.toArray())
+            .renderer(() -> GenericNixieDisplayBoardRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<FlywheelBearingBlockEntity> FLYWHEEL_BEARING = REGISTRATE
+            .blockEntity("flywheel_bearing", FlywheelBearingBlockEntity::new)
+            .validBlocks(BnbKineticBlocks.FLYWHEEL_BEARING)
+            .renderer(() -> FlywheelBearingBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<ChainPulleyBlockEntity> CHAIN_ROPE_PULLEY = REGISTRATE
+            .blockEntity("chain_pulley", ChainPulleyBlockEntity::new)
+//            .visual(() -> ChainPulleyVisual::new, false)
+            .validBlocks(BnbKineticBlocks.CHAIN_PULLEY)
+            .renderer(() -> ChainPulleyRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<MigratingSimpleKineticBlockEntity> MIGRATING_SIMPLE_KINETIC = REGISTRATE.blockEntity(
+                    "migrating_simple_kinetic",
+                    MigratingSimpleKineticBlockEntity::new
+            )
+            .visual(() -> GenericKineticVisuals::registeredModel, true)
+            .validBlocks(BnbKineticBlocks.SMALL_FLANGED_COGWHEEL, BnbKineticBlocks.LARGE_FLANGED_COGWHEEL)
+            .validBlocks(() -> AllBlocks.COGWHEEL, () -> AllBlocks.LARGE_COGWHEEL)
+            .renderer(() -> KineticBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<GiganticCogwheelBlockEntity> GIGANTIC_COGWHEEL = REGISTRATE
+            .blockEntity("gigantic_cogwheel", GiganticCogwheelBlockEntity::new)
+            .visual(() -> GiganticCogwheelVisual::new, true)
+            .validBlocks(BnbKineticBlocks.GIGANTIC_COGWHEEL)
+            .renderer(() -> GiganticCogwheelRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<ThrottleLeverBlockEntity> THROTTLE_LEVER = REGISTRATE
+            .blockEntity("throttle_lever", ThrottleLeverBlockEntity::new)
+            .validBlocks(BnbTrinketBlocks.THROTTLE_LEVER)
+            .renderer(() -> ThrottleLeverBlockEntityRenderer::new)
+            .register();
+
+    public static final BlockEntityEntry<CogwheelChainCarriageBlockEntity> COGWHEEL_CHAIN_CARRIAGE = REGISTRATE
+            .blockEntity("cogwheel_chain_carriage", CogwheelChainCarriageBlockEntity::new)
+            .validBlock(BnbKineticBlocks.COGWHEEL_CHAIN_CARRIAGE)
+            .register();
+
+    public static final BlockEntityEntry<TrussFluidPipeBlockEntity> METAL_TRUSS_PIPE = REGISTRATE
+            .blockEntity("industrial_truss_pipe", TrussFluidPipeBlockEntity::new)
+            .validBlock(BnbDecorativeBlocks.METAL_TRUSS_PIPE)
+            .register();
+
+    public static void register() {
+    }
+
+}
+
+

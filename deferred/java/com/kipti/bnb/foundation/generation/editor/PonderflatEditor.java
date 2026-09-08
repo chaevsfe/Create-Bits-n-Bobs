@@ -1,0 +1,203 @@
+package com.kipti.bnb.foundation.generation.editor;
+
+import com.kipti.bnb.foundation.generation.PonderflatGeneratorSettings;
+import com.kipti.bnb.foundation.generation.PonderflatGeneratorSettings.CellStyle;
+import net.minecraft.client.gui.GuiGraphics;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.client.gui.components.EditBox;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.layouts.LinearLayout;
+import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.gui.screens.worldselection.WorldCreationContext;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.neoforged.neoforge.client.gui.widget.ExtendedSlider;
+
+import java.util.Arrays;
+import java.util.Locale;
+import java.util.function.Consumer;
+
+public class PonderflatEditor extends Screen {
+    private static final Component TITLE = Component.literal("Ponderflat Settings");
+    private static final int SPACING = 8;
+    private static final int WIDGET_WIDTH = 210;
+    private static final int WIDGET_HEIGHT = 20;
+
+    private HeaderAndFooterLayout layout;
+    private final Screen parent;
+    private final Consumer<PonderflatGeneratorSettings> settingsConsumer;
+
+    private int cellSize = 1;
+    private Block blockLight = Blocks.SNOW_BLOCK;
+    private Block blockDark = Blocks.WHITE_CONCRETE;
+    private CellStyle cellStyle = CellStyle.BORDERED;
+
+    private EditBox lightBlockInput;
+    private EditBox darkBlockInput;
+
+    private record Preset(String name, int cellSize, Block blockLight, Block blockDark, CellStyle cellStyle) {
+    }
+
+    private static final Preset[] PRESETS = {
+            new Preset("Small Ponder", 1, Blocks.SNOW_BLOCK, Blocks.WHITE_CONCRETE, CellStyle.BORDERED),
+            new Preset("Big Ponder", 3, Blocks.SNOW_BLOCK, Blocks.WHITE_CONCRETE, CellStyle.BORDERED),
+            new Preset("World Ponder", 5, Blocks.SNOW_BLOCK, Blocks.WHITE_CONCRETE, CellStyle.BORDERED),
+            new Preset("Garden Ponder", 1, Blocks.MOSS_BLOCK, Blocks.GRASS_BLOCK, CellStyle.BORDERED),
+    };
+
+    public PonderflatEditor(final Screen parent, final WorldCreationContext context, final Consumer<PonderflatGeneratorSettings> settingsConsumer) {
+        super(TITLE);
+        this.parent = parent;
+        this.settingsConsumer = settingsConsumer;
+    }
+
+    @Override
+    public void onClose() {
+        this.minecraft.setScreen(this.parent);
+    }
+
+    private void done() {
+        this.settingsConsumer.accept(new PonderflatGeneratorSettings(this.cellSize, this.blockLight, this.blockDark, this.cellStyle));
+        this.minecraft.setScreen(this.parent);
+    }
+
+    @Override
+    protected void init() {
+        this.layout = new HeaderAndFooterLayout(this);
+
+        // Header
+        final LinearLayout header = this.layout.addToHeader(LinearLayout.vertical().spacing(SPACING));
+        header.defaultCellSetting().alignHorizontallyCenter();
+        header.addChild(new StringWidget(this.getTitle(), this.font));
+
+        // Body
+        final LinearLayout body = this.layout.addToContents(LinearLayout.vertical().spacing(SPACING));
+        body.defaultCellSetting().alignHorizontallyCenter();
+
+        // Presets
+        // Try figure out which preset (if any) matches the current settings, and select that one by default
+        Preset selectedPreset = null;
+        for (final Preset preset : PRESETS) {
+            if (preset.cellSize == this.cellSize && preset.blockLight == this.blockLight && preset.blockDark == this.blockDark && preset.cellStyle == this.cellStyle) {
+                selectedPreset = preset;
+                break;
+            }
+        }
+        final Preset nextPreset = selectedPreset == null ? PRESETS[0] : PRESETS[(Arrays.asList(PRESETS).indexOf(selectedPreset) + 1) % PRESETS.length];
+
+        body.addChild(
+                Button.builder(
+                                Component.literal("Preset: " + (selectedPreset != null ? selectedPreset.name : "Custom")),
+                                btn -> this.applyPreset(nextPreset)
+                        )
+                        .build()
+        );
+
+        // Cell Size slider (1-16)
+        final ExtendedSlider cellSizeSlider = new ExtendedSlider(
+                0, 0, WIDGET_WIDTH, WIDGET_HEIGHT,
+                Component.literal("Cell Size: "), Component.empty(),
+                1, 16, this.cellSize, 1, 0, true
+        ) {
+            @Override
+            protected void applyValue() {
+                PonderflatEditor.this.cellSize = this.getValueInt();
+            }
+        };
+        body.addChild(cellSizeSlider);
+
+        // Cell Style cycle button
+        final CycleButton<CellStyle> styleButton = CycleButton.<CellStyle>builder(
+                        style -> Component.literal(style.getSerializedName().substring(0, 1).toUpperCase(Locale.ROOT) + style.getSerializedName().substring(1)))
+                .withValues(CellStyle.values())
+                .withInitialValue(this.cellStyle)
+                .create(0, 0, WIDGET_WIDTH, WIDGET_HEIGHT,
+                        Component.literal("Cell Style"),
+                        (btn, val) -> this.cellStyle = val);
+        body.addChild(styleButton);
+
+        // Light Block input
+        body.addChild(new StringWidget(Component.literal("Light Block ID:").withColor(0xAAAAAA), this.font));
+        this.lightBlockInput = new EditBox(this.font, 0, 0, WIDGET_WIDTH, WIDGET_HEIGHT, Component.literal("Light Block"));
+        this.lightBlockInput.setMaxLength(128);
+        this.lightBlockInput.setValue(BuiltInRegistries.BLOCK.getKey(this.blockLight).toString());
+        this.lightBlockInput.setResponder(val -> {
+            final Block resolved = resolveBlock(val);
+            if (resolved != null) {
+                this.blockLight = resolved;
+                this.lightBlockInput.setTextColor(0xFFFFFF);
+            } else {
+                this.lightBlockInput.setTextColor(0xFF5555);
+            }
+        });
+        body.addChild(this.lightBlockInput);
+
+        // Dark Block input
+        body.addChild(new StringWidget(Component.literal("Dark Block ID:").withColor(0xAAAAAA), this.font));
+        this.darkBlockInput = new EditBox(this.font, 0, 0, WIDGET_WIDTH, WIDGET_HEIGHT, Component.literal("Dark Block"));
+        this.darkBlockInput.setMaxLength(128);
+        this.darkBlockInput.setValue(BuiltInRegistries.BLOCK.getKey(this.blockDark).toString());
+        this.darkBlockInput.setResponder(val -> {
+            final Block resolved = resolveBlock(val);
+            if (resolved != null) {
+                this.blockDark = resolved;
+                this.darkBlockInput.setTextColor(0xFFFFFF);
+            } else {
+                this.darkBlockInput.setTextColor(0xFF5555);
+            }
+        });
+        body.addChild(this.darkBlockInput);
+
+        // Footer (Done / Cancel)
+        final LinearLayout footer = this.layout.addToFooter(LinearLayout.horizontal().spacing(SPACING));
+        footer.addChild(Button.builder(CommonComponents.GUI_DONE, btn -> this.done()).width(100).build());
+        footer.addChild(Button.builder(CommonComponents.GUI_CANCEL, btn -> this.onClose()).width(100).build());
+
+        this.layout.visitWidgets(this::addRenderableWidget);
+        this.repositionElements();
+    }
+
+    @Override
+    public void render(final GuiGraphics guiGraphics, final int mouseX, final int mouseY, final float partialTick) {
+        super.render(guiGraphics, mouseX, mouseY, partialTick);
+
+        // Render item icons next to block input fields
+        if (this.lightBlockInput != null) {
+            final ItemStack lightStack = new ItemStack(this.blockLight);
+            guiGraphics.renderItem(lightStack, this.lightBlockInput.getX() + WIDGET_WIDTH + 4, this.lightBlockInput.getY() + 2);
+        }
+        if (this.darkBlockInput != null) {
+            final ItemStack darkStack = new ItemStack(this.blockDark);
+            guiGraphics.renderItem(darkStack, this.darkBlockInput.getX() + WIDGET_WIDTH + 4, this.darkBlockInput.getY() + 2);
+        }
+    }
+
+    @Override
+    protected void repositionElements() {
+        this.layout.arrangeElements();
+    }
+
+    private void applyPreset(final Preset preset) {
+        this.cellSize = preset.cellSize();
+        this.blockLight = preset.blockLight();
+        this.blockDark = preset.blockDark();
+        this.cellStyle = preset.cellStyle();
+        this.rebuildWidgets();
+    }
+
+    private static Block resolveBlock(final String id) {
+        final Identifier loc = Identifier.tryParse(id);
+        if (loc != null && BuiltInRegistries.BLOCK.containsKey(loc)) {
+            return BuiltInRegistries.BLOCK.get(loc);
+        }
+        return null;
+    }
+}
+

@@ -1,0 +1,18 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_enabled",
+      "feature": "tiles"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "bits_n_bobs:scoria_tile_slab",
+    "bits_n_bobs:scoria_tile_slab"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:scoria_tiles"
+  }
+}

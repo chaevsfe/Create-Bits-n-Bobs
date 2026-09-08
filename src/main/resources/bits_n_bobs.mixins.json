@@ -1,0 +1,44 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.kipti.bnb.mixin",
+  "plugin": "com.kipti.bnb.mixin.BnbMixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "mixins": [
+    "AbstractContraptionEntityMixin",
+    "FlangedCogwheelRotationMixin",
+    "ItemInputMixin",
+    "KineticBlockEntityMixin",
+    "LevelChunkMixin",
+    "RotationPropagatorBehaviourMixin",
+    "RotationPropagatorMixin",
+    "ServerEntityMixin",
+    "ServerGamePacketListenerImplAccessor",
+    "SmartBlockEntityMixin",
+    "StructureTransformMixin",
+    "dyeable.create_blocks.BlockItemMixin",
+    "dyeable.fluid_tank.ConnectivityHandlerMixin",
+    "dyeable.fluid_tank.FluidTankBlockEntityMixin",
+    "dyeable.fluid_tank.FluidTankItemMixin",
+    "dyeable.pipes.AxisPipeBlockTransitionMixin",
+    "dyeable.pipes.EncasedPipeBlockTransitionMixin",
+    "dyeable.pipes.FluidPipeBlockMixin",
+    "dyeable.pipes.FluidPipeBlockTransitionMixin",
+    "dyeable.pipes.GlassFluidPipeBlockTransitionMixin",
+    "encasable_piston_poles.ContraptionColliderMixin",
+    "encasable_piston_poles.MechanicalPistonBlockMixin",
+    "encasable_piston_poles.PistonContraptionMixin",
+    "encasable_piston_poles.PistonExtensionPoleBlockMixin",
+    "flywheel_bearing.KineticNetworkMixin",
+    "glowing_belts.BeltBlockMixin",
+    "glowing_belts.BeltSlicerMixin",
+    "truss_pipe.FluidTransportBehaviourMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

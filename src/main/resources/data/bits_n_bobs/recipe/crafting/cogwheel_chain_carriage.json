@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:cogwheel_chain_carriage"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "N": "minecraft:iron_nugget",
+    "P": "create:iron_sheet",
+    "W": "#minecraft:wool",
+    "C": "create:andesite_casing"
+  },
+  "pattern": [
+    "PN",
+    "W ",
+    "C "
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:cogwheel_chain_carriage"
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.kipti.bnb.mixin.client",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+    "chain.ChainConveyorRidingHandlerAccessor",
+    "chain.ChainConveyorRidingHandlerMixin",
+    "chain.PlayerSkyhookRendererAccessor",
+    "chain.PlayerSkyhookRendererMixin",
+    "cogwheel_material.BlockEntityRenderDispatcherMixin",
+    "cogwheel_material.BlockEntityRenderHelperMixin",
+    "cogwheel_material.CachedBuffersMixin",
+    "cogwheel_material.CogwheelMaterialVisualMixin",
+    "dyeable.FluidTankRendererMixin",
+    "dyeable.FluidValveRendererMixin",
+    "model.AllModelsMixin",
+    "decoration.GirderCTBehaviourMixin",
+    "glowing_belts.BlockStateBaseMixin",
+    "kinetics.KineticBlockEntityVisualMixin",
+    "nixie.FontMixin",
+    "ponder.AllCreatePonderScenesMixin",
+    "tab.CreativeModeTabMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

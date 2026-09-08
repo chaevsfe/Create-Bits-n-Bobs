@@ -1,0 +1,47 @@
+{
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"2": "bits_n_bobs:block/chair/chair_red",
+		"3": "create:block/seat/bottom",
+		"particle": "create:block/seat/bottom"
+	},
+	"elements": [
+		{
+			"from": [0, 8.225, 13.25],
+			"to": [16, 20.225, 17.25],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 11.2375, 15.625]},
+			"faces": {
+				"north": {"uv": [8, 4, 14, 12], "rotation": 270, "texture": "#2"},
+				"east": {"uv": [14, 12, 8, 10], "rotation": 90, "texture": "#2"},
+				"south": {"uv": [0, 4, 16, 16], "rotation": 180, "texture": "#3"},
+				"west": {"uv": [14, 4, 8, 6], "rotation": 90, "texture": "#2"},
+				"up": {"uv": [12.5, 4, 14.5, 12], "rotation": 270, "texture": "#2"},
+				"down": {"uv": [8.5, 4, 6.5, 12], "rotation": 90, "texture": "#2"}
+			}
+		},
+		{
+			"from": [1, 7, 15],
+			"to": [15, 9, 17],
+			"rotation": {"angle": 22.5, "axis": "x", "origin": [8, 11.2375, 15.625]},
+			"faces": {
+				"north": {"uv": [0.5, 14, 7.5, 15], "texture": "#2"},
+				"east": {"uv": [0.5, 14, 1.5, 15], "rotation": 90, "texture": "#2"},
+				"south": {"uv": [0.5, 14, 7.5, 15], "texture": "#2"},
+				"west": {"uv": [0.5, 14, 1.5, 15], "rotation": 90, "texture": "#2"},
+				"up": {"uv": [0.5, 14, 7.5, 15], "texture": "#2"},
+				"down": {"uv": [0.5, 14, 7.5, 15], "rotation": 180, "texture": "#2"}
+			}
+		}
+	],
+	"groups": [
+		0,
+		1,
+		{
+			"name": "armrests",
+			"origin": [-0.5, 9.5, 9.5],
+			"color": 0,
+			"children": []
+		}
+	]
+}

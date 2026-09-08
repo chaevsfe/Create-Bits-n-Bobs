@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:industrial_truss"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "N": "#c:nuggets/iron",
+    "P": "#c:plates/iron"
+  },
+  "pattern": [
+    "PPP",
+    "NNN",
+    "PPP"
+  ],
+  "result": {
+    "count": 8,
+    "id": "bits_n_bobs:industrial_truss"
+  }
+}

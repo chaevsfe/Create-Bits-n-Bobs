@@ -1,0 +1,134 @@
+package com.kipti.bnb.mixin.dyeable.pipes;
+
+import com.kipti.bnb.content.decoration.dyeable.DyeableTransitionHelper;
+import com.kipti.bnb.content.decoration.dyeable.pipes.DyeablePipeBehaviour;
+import com.kipti.bnb.content.decoration.dyeable.tanks.DyeableTankBehaviour;
+import com.kipti.bnb.content.decoration.truss.TrussFluidPipeBlock;
+import com.kipti.bnb.registry.core.BnbTags;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.zurrtum.create.content.fluids.pipes.FluidPipeBlock;
+import com.zurrtum.create.api.behaviour.BlockEntityBehaviour;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.level.BlockAndLightGetter;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Unique;
+import org.spongepowered.asm.mixin.injection.At;
+
+@Mixin(FluidPipeBlock.class)
+public class FluidPipeBlockMixin {
+
+    @WrapOperation(
+        method = "updateBlockState",
+        at = @At(value = "INVOKE", target = "Lcom/zurrtum/create/content/fluids/pipes/FluidPipeBlock;canConnectTo(Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z")
+    )
+    private boolean bnb$filterDyeConnections(
+        final BlockAndLightGetter neighbourWorld,
+        final BlockPos neighbourPos,
+        final BlockState neighbourState,
+        final Direction direction,
+        final Operation<Boolean> original,
+        // Captured outer method parameters:
+        final BlockState state,
+        final Direction preferredDirection,
+        final Direction ignore,
+        final BlockAndLightGetter world,
+        final BlockPos pos
+    ) {
+        return bnb$filterRegularPipeConnection(
+            original.call(neighbourWorld, neighbourPos, neighbourState, direction),
+            world,
+            pos,
+            neighbourPos,
+            neighbourState
+        );
+    }
+
+    @WrapOperation(
+        method = "shouldDrawRim",
+        at = @At(value = "INVOKE", target = "Lcom/zurrtum/create/content/fluids/pipes/FluidPipeBlock;canConnectTo(Lnet/minecraft/world/level/BlockAndLightGetter;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/block/state/BlockState;Lnet/minecraft/core/Direction;)Z")
+    )
+    private static boolean bnb$filterDyeConnectionsWhileDrawingRims(
+        final BlockAndLightGetter neighbourWorld,
+        final BlockPos neighbourPos,
+        final BlockState neighbourState,
+        final Direction direction,
+        final Operation<Boolean> original,
+        final BlockAndLightGetter world,
+        final BlockPos pos,
+        final BlockState state,
+        final Direction queriedDirection
+    ) {
+        return bnb$filterRegularPipeConnection(
+            original.call(neighbourWorld, neighbourPos, neighbourState, direction),
+            world,
+            pos,
+            neighbourPos,
+            neighbourState
+        );
+    }
+
+    @Unique
+    private static boolean bnb$filterRegularPipeConnection(
+        final boolean canConnect,
+        final BlockAndLightGetter world,
+        final BlockPos pos,
+        final BlockPos neighbourPos,
+        final BlockState neighbourState
+    ) {
+        if (!canConnect) {
+            return false;
+        }
+
+        final @Nullable DyeColor selfColor = bnb$getEffectiveColor(world, pos);
+
+        if (FluidPipeBlock.isPipe(neighbourState) || neighbourState.getBlock() instanceof TrussFluidPipeBlock) {
+            final @Nullable DyeColor neighbourColor = bnb$getEffectiveColor(world, neighbourPos);
+            return bnb$areDyeColorsCompatible(selfColor, neighbourColor);
+        }
+
+        if (BnbTags.BnbBlockTags.DYEABLE_FLUID_TANK.matches(neighbourState)) {
+            final @Nullable DyeColor tankColor = bnb$getEffectiveTankColor(world, neighbourPos);
+            return bnb$areDyeColorsCompatible(selfColor, tankColor);
+        }
+
+        return true;
+    }
+
+    @Unique
+    private static boolean bnb$areDyeColorsCompatible(@Nullable final DyeColor a, @Nullable final DyeColor b) {
+        if (a == null || b == null) {
+            return true;
+        }
+        return a == b;
+    }
+
+    @Unique
+    @Nullable
+    private static DyeColor bnb$getEffectiveTankColor(final BlockAndLightGetter world, final BlockPos pos) {
+        final DyeableTankBehaviour behaviour = BlockEntityBehaviour.get(
+            world,
+            pos,
+            DyeableTankBehaviour.TYPE
+        );
+        if (behaviour != null && behaviour.getColor() != null) {
+            return behaviour.getColor();
+        }
+        return DyeableTransitionHelper.getPendingPlacementColor(world, pos);
+    }
+
+    @Unique
+    @Nullable
+    private static DyeColor bnb$getEffectiveColor(final BlockAndLightGetter world, final BlockPos pos) {
+        final DyeablePipeBehaviour behaviour = BlockEntityBehaviour.get(world, pos, DyeablePipeBehaviour.TYPE);
+        if (behaviour != null && behaviour.getColor() != null) {
+            return behaviour.getColor();
+        }
+        return DyeableTransitionHelper.getPendingPlacementColor(world, pos);
+    }
+
+}

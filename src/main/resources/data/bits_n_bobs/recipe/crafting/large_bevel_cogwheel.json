@@ -1,0 +1,18 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:large_flanged_cogwheel"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "create:large_cogwheel",
+    "minecraft:iron_nugget"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:large_flanged_cogwheel"
+  }
+}

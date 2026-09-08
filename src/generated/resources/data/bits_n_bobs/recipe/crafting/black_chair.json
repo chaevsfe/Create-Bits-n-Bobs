@@ -1,0 +1,18 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_enabled",
+      "feature": "chairs"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "building",
+  "ingredients": [
+    "minecraft:black_wool",
+    "#minecraft:wooden_stairs"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:black_chair"
+  }
+}

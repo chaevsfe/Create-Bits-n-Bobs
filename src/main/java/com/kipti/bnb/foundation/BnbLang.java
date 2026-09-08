@@ -1,0 +1,68 @@
+package com.kipti.bnb.foundation;
+
+import com.kipti.bnb.CreateBitsnBobs;
+import com.zurrtum.create.Create;
+import com.zurrtum.create.client.catnip.lang.Lang;
+import com.zurrtum.create.client.catnip.lang.LangBuilder;
+import com.zurrtum.create.client.catnip.lang.LangNumberFormat;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.BlockState;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class BnbLang extends Lang {
+
+    /**
+     * legacy-ish. Use CreateLang.translate and other builder methods where possible
+     */
+    public static MutableComponent translateDirect(final String key, final Object... args) {
+        final Object[] args1 = LangBuilder.resolveBuilders(args);
+        return Component.translatable(Create.MOD_ID + "." + key, args1);
+    }
+
+    public static List<Component> translatedOptions(final String prefix, final String... keys) {
+        final List<Component> result = new ArrayList<>(keys.length);
+        for (final String key : keys)
+            result.add(translate((prefix != null ? prefix + "." : "") + key).component());
+        return result;
+    }
+
+    //
+
+    public static LangBuilder builder() {
+        return new LangBuilder(CreateBitsnBobs.MOD_ID);
+    }
+
+    public static LangBuilder blockName(final BlockState state) {
+        return builder().add(state.getBlock()
+                .getName());
+    }
+
+    public static LangBuilder itemName(final ItemStack stack) {
+        return builder().add(stack.getHoverName()
+                .copy());
+    }
+
+
+    public static LangBuilder number(final double d) {
+        return builder().text(LangNumberFormat.format(d));
+    }
+
+    public static LangBuilder translate(final String langKey, final Object... args) {
+        return builder().translate(langKey, args);
+    }
+
+    public static LangBuilder text(final String text) {
+        return builder().text(text);
+    }
+
+    @Deprecated // Use while implementing and replace all references with Lang.translate
+    public static LangBuilder temporaryText(final String text) {
+        return builder().text(text);
+    }
+
+}
+

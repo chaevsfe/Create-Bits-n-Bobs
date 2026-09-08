@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "id": "bits_n_bobs",
+  "version": "${version}",
+  "name": "Create Fly: Bits n Bobs (Unofficial Port)",
+  "description": "Create: Bits 'n' Bobs port for Create Fly 26.2. Decoration, kinetics and trinkets for Create.",
+  "authors": [
+    "Cake",
+    "Kipti",
+    "NormalGuy",
+    "Astral",
+    "Spydnel",
+    "chaevsfe"
+  ],
+  "contributors": [
+    "chaevsfe"
+  ],
+  "contact": {
+    "homepage": "https://github.com/chaevsfe/Create-Bits-n-Bobs",
+    "sources": "https://github.com/chaevsfe/Create-Bits-n-Bobs",
+    "issues": "https://github.com/chaevsfe/Create-Bits-n-Bobs/issues",
+    "upstream": "https://modrinth.com/mod/create-bits-n-bobs"
+  },
+  "license": [
+    "MIT"
+  ],
+  "icon": "assets/bits_n_bobs/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.kipti.bnb.fabric.BnbFabric"
+    ],
+    "create_plugin": [
+      "com.kipti.bnb.fabric.BnbCreatePlugin"
+    ],
+    "client": [
+      "com.kipti.bnb.fabric.client.BnbFabricClient"
+    ]
+  },
+  "mixins": [
+    "bits_n_bobs.mixins.json",
+    {
+      "config": "bits_n_bobs.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "minecraft": "${minecraft_dependency_version}",
+    "fabricloader": ">=${fabric_loader_version}",
+    "fabric-api": "*",
+    "create": "${create_fabric_version_range}",
+    "struts": "*",
+    "java": ">=25"
+  },
+  "breaks": {
+    "azimuth-api": "*",
+    "sable": "*",
+    "sable-companion": "*"
+  }
+}

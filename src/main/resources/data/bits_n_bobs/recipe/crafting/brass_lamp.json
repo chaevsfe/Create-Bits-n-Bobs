@@ -1,0 +1,26 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:brass_lamp"
+    },
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:lightbulb"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "B": "create:brass_sheet",
+    "L": "bits_n_bobs:lightbulb"
+  },
+  "pattern": [
+    "B",
+    "L"
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:brass_lamp"
+  }
+}

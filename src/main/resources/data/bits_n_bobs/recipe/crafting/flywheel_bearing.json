@@ -1,0 +1,25 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:flywheel_bearing"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "S": "#minecraft:wooden_slabs",
+    "G": "create:large_cogwheel",
+    "C": "create:brass_casing",
+    "A": "create:andesite_alloy"
+  },
+  "pattern": [
+    " S ",
+    "ACA",
+    " G "
+  ],
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:flywheel_bearing"
+  }
+}

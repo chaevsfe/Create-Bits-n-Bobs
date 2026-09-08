@@ -1,0 +1,14 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_enabled",
+      "feature": "tiles"
+    }
+  ],
+  "type": "minecraft:stonecutting",
+  "ingredient": "#create:stone_types/limestone",
+  "result": {
+    "count": 1,
+    "id": "bits_n_bobs:limestone_tile_stairs"
+  }
+}

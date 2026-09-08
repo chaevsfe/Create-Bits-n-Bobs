@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:weathered_girder_strut"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "A": "create:andesite_alloy",
+    "G": "bits_n_bobs:weathered_metal_girder"
+  },
+  "pattern": [
+    "A  ",
+    "GGG",
+    "  A"
+  ],
+  "result": {
+    "count": 6,
+    "id": "bits_n_bobs:weathered_girder_strut"
+  }
+}

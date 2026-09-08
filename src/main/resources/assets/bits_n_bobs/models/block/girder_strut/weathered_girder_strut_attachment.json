@@ -1,0 +1,107 @@
+{
+  "format_version": "1.21.6",
+  "credit": "Made with Blockbench",
+  "textures": {
+    "0": "bits_n_bobs:block/weathered_girder_attachment",
+    "particle": "bits_n_bobs:block/weathered_industrial_iron_block"
+  },
+  "elements": [
+    {
+      "from": [
+        2.95,
+        -5.05,
+        2.95
+      ],
+      "to": [
+        13.05,
+        1.05,
+        13.05
+      ],
+      "rotation": {
+        "angle": 0,
+        "axis": "y",
+        "origin": [
+          8,
+          -0.5,
+          8
+        ]
+      },
+      "faces": {
+        "north": {
+          "uv": [
+            13,
+            8,
+            16,
+            13
+          ],
+          "rotation": 270,
+          "texture": "#0"
+        },
+        "east": {
+          "uv": [
+            13,
+            8,
+            16,
+            13
+          ],
+          "rotation": 270,
+          "texture": "#0"
+        },
+        "south": {
+          "uv": [
+            13,
+            8,
+            16,
+            13
+          ],
+          "rotation": 270,
+          "texture": "#0"
+        },
+        "west": {
+          "uv": [
+            13,
+            8,
+            16,
+            13
+          ],
+          "rotation": 270,
+          "texture": "#0"
+        },
+        "up": {
+          "uv": [
+            8,
+            8,
+            13,
+            13
+          ],
+          "rotation": 180,
+          "texture": "#0"
+        },
+        "down": {
+          "uv": [
+            8,
+            8,
+            13,
+            13
+          ],
+          "texture": "#0"
+        }
+      }
+    }
+  ],
+  "groups": [
+    {
+      "name": "Brace",
+      "origin": [
+        0,
+        0,
+        0
+      ],
+      "scope": 0,
+      "color": 0,
+      "children": [
+        0
+      ]
+    }
+  ]
+}

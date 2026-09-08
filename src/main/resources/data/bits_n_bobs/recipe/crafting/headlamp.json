@@ -1,0 +1,21 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:headlamp"
+    },
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:lightbulb"
+    }
+  ],
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "bits_n_bobs:lightbulb"
+  ],
+  "result": {
+    "count": 2,
+    "id": "bits_n_bobs:headlamp"
+  }
+}

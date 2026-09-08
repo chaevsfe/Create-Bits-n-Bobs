@@ -1,0 +1,180 @@
+package com.kipti.bnb.registry.client;
+
+import com.kipti.bnb.CreateBitsnBobs;
+import com.zurrtum.create.client.foundation.block.connected.AllCTTypes;
+import com.zurrtum.create.client.foundation.block.connected.CTSpriteShiftEntry;
+import com.zurrtum.create.client.foundation.block.connected.CTSpriteShifter;
+import com.zurrtum.create.client.foundation.block.connected.CTType;
+import com.zurrtum.create.client.catnip.render.SpriteShiftEntry;
+import com.zurrtum.create.client.catnip.render.SpriteShifter;
+import net.minecraft.resources.Identifier;
+import net.minecraft.world.item.DyeColor;
+
+import java.util.Collections;
+import java.util.EnumMap;
+import java.util.Map;
+
+public class BnbSpriteShifts {
+
+    public static final SpriteShiftEntry
+        CHAIN_PULLEY_COIL = get("block/chain_pulley_coil", "block/chain_pulley_coil_scroll"),
+        CHAIN_ROPE = SpriteShifter.get(
+            Identifier.withDefaultNamespace("block/chain"),
+            CreateBitsnBobs.asResource("block/chain_scroll")
+        );
+
+    public static final CTSpriteShiftEntry
+        WEATHERED_GIRDER_POLE = vertical("weathered_girder_pole_side");
+
+    public static final CTSpriteShiftEntry
+        INDUSTRIAL_GRATING = omni("industrial_grating");
+    public static final CTSpriteShiftEntry
+        INDUSTRIAL_GRATING_CUTOUT = omni("industrial_grating_cutout");
+    public static final CTSpriteShiftEntry
+        INDUSTRIAL_GRATING_PIPE_CUTOUT = omni("industrial_grating_pipe_cutout");
+
+
+    private static Map<DyeColor, SpriteShiftEntry> getHeadlampSpriteShifts(final boolean off) {
+        final Map<DyeColor, SpriteShiftEntry> map = new EnumMap<>(DyeColor.class);
+        for (final DyeColor color : DyeColor.values()) {
+            map.put(
+                color, get(
+                    "block/headlight/headlight_off",
+                    "block/headlight/headlight" + (off ? "_off" : "_on") + "_" + color.getName()
+                )
+            );
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    /**
+     * Sprite shift from the off (undyed) headlamp texture to the on (undyed) headlamp texture.
+     */
+    public static final SpriteShiftEntry HEADLAMP_ON_UNDYED_SPRITE_SHIFT = get(
+        "block/headlight/headlight_off",
+        "block/headlight/headlight_on"
+    );
+
+    /**
+     * Sprite shifts from the off (undyed) base texture to the on (dyed) texture for each dye color.
+     */
+    public static final Map<DyeColor, SpriteShiftEntry> HEADLAMP_ON_SPRITE_SHIFTS = getHeadlampSpriteShifts(false);
+    /**
+     * Sprite shifts from the off (undyed) base texture to the off (dyed) texture for each dye color.
+     */
+    public static final Map<DyeColor, SpriteShiftEntry> HEADLAMP_OFF_SPRITE_SHIFTS = getHeadlampSpriteShifts(true);
+
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_PIPES = getDyedSpriteShifts(
+        "pipes",
+        "dyed_pipes"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_PIPES_CONNECTED = getDyedSpriteShifts(
+        "pipes_connected",
+        "dyed_pipes"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_GLASS_FLUID_PIPE = getDyedSpriteShifts(
+        "glass_fluid_pipe",
+        "dyed_pipes"
+    );
+
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_CONNECTED = getDyedSpriteShifts(
+        "fluid_tank_connected",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_TOP_CONNECTED = getDyedSpriteShifts(
+        "fluid_tank_top_connected",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_INNER_CONNECTED = getDyedSpriteShifts(
+        "fluid_tank_inner_connected",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_WINDOW = getDyedSpriteShifts(
+        "fluid_tank_window",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_WINDOW_SINGLE = getDyedSpriteShifts(
+        "fluid_tank_window_single",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_BOILER_GAUGE = getDyedSpriteShifts(
+        "boiler_gauge",
+        "dyed_fluid_tank"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_PUMP = getDyedSpriteShifts(
+        "pump",
+        "dyed_pump"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_SMART_PIPE_1 = getDyedSpriteShifts(
+        "smart_pipe_1",
+        "dyed_smart_pipe"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_SMART_PIPE_2 = getDyedSpriteShifts(
+        "smart_pipe_2",
+        "dyed_smart_pipe"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_STEAM_ENGINE = getDyedSpriteShifts(
+        "engine",
+        "dyed_steam_engine"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_VALVE_CLOSED = getDyedSpriteShifts(
+        "valve_closed",
+        "dyed_valve"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_VALVE_OPEN = getDyedSpriteShifts(
+        "valve_open",
+        "dyed_valve"
+    );
+    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_VALVE = getDyedSpriteShifts(
+        "fluid_valve",
+        "dyed_valve"
+    );
+
+    public static Map<DyeColor, SpriteShiftEntry> getDyedSpriteShifts(
+        final String sourceTexture,
+        final String targetFolder) {
+        final Map<DyeColor, SpriteShiftEntry> map = new EnumMap<>(DyeColor.class);
+        for (final DyeColor color : DyeColor.values()) {
+            map.put(
+                color, SpriteShifter.get(
+                    Identifier.fromNamespaceAndPath("create", "block/" + sourceTexture),
+                    CreateBitsnBobs.asResource("block/" + targetFolder + "/" + sourceTexture + "_" + color.getName())
+                )
+            );
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    private static CTSpriteShiftEntry omni(final String name) {
+        return getCT(AllCTTypes.OMNIDIRECTIONAL, name);
+    }
+
+    private static CTSpriteShiftEntry vertical(final String name) {
+        return getCT(AllCTTypes.VERTICAL, name);
+    }
+
+    private static CTSpriteShiftEntry getCT(final CTType type,
+                                            final String blockTextureName,
+                                            final String connectedTextureName) {
+        return CTSpriteShifter.getCT(
+            type, CreateBitsnBobs.asResource("block/" + blockTextureName),
+            CreateBitsnBobs.asResource("block/" + connectedTextureName + "_connected")
+        );
+    }
+
+    private static CTSpriteShiftEntry getCT(final CTType type, final String blockTextureName) {
+        return getCT(type, blockTextureName, blockTextureName);
+    }
+
+    private static SpriteShiftEntry get(final String originalLocation, final String targetLocation) {
+        return SpriteShifter.get(
+            CreateBitsnBobs.asResource(originalLocation),
+            CreateBitsnBobs.asResource(targetLocation)
+        );
+    }
+
+    public static void register() {
+    }
+
+}
+

@@ -1,0 +1,19 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:girder_strut"
+    },
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:weathered_girder_strut"
+    }
+  ],
+  "type": "create:splashing",
+  "results": [
+    {
+      "id": "bits_n_bobs:weathered_girder_strut"
+    }
+  ],
+  "ingredient": "bits_n_bobs:girder_strut"
+}

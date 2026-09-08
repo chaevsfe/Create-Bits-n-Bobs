@@ -1,0 +1,15 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:weathered_metal_bracket"
+    }
+  ],
+  "type": "create:splashing",
+  "results": [
+    {
+      "id": "bits_n_bobs:weathered_metal_bracket"
+    }
+  ],
+  "ingredient": "create:metal_bracket"
+}

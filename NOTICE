@@ -1,0 +1,37 @@
+Create Fly: Bits n Bobs (Unofficial Port)
+=========================================
+
+This is an unofficial port of Create: Bits 'n' Bobs to Fabric for Minecraft 26.2,
+built against Create Fly (ZurrTum's Fabric build of Create). It is not made,
+endorsed or supported by the upstream authors.
+
+Upstream project
+----------------
+Create: Bits 'n' Bobs by Cake, Kipti, NormalGuy, Astral and Spydnel (AzTech Modding).
+Source: https://github.com/Aztech-Modding/Create-Bits-n-Bobs
+Ported from commit 4c71fe279a50351d519fa4c44e0a9cf157e6057e (version 2.3.2).
+Modrinth: https://modrinth.com/mod/create-bits-n-bobs
+
+Licence
+-------
+Upstream declares the MIT License in its mod metadata (`neoforge.mods.toml`,
+expanded from `mod_license=MIT` in `gradle.properties`) and on its Modrinth page.
+Upstream ships no LICENSE file and no copyright line, so the MIT text and the
+copyright line in the LICENSE file beside this notice were CONSTRUCTED for this
+distribution from the declared grant and the authors listed in
+`gradle.properties`; they were not preserved from upstream, because upstream
+wrote none to preserve.
+
+Assets and data
+---------------
+All textures, models, sounds and datapack files are upstream's, redistributed
+under the same declared MIT grant. Upstream's `vault/` directory of loose source
+art is not part of this port.
+
+Port-specific code
+------------------
+The registration layer under `com.kipti.bnb.registrate`, the behaviour layer
+under `com.kipti.bnb.foundation.behaviour`, the Sable Companion stand-ins under
+`com.kipti.bnb.compat.sable` and the networking layer under
+`com.kipti.bnb.network` were written for this port and are released under the
+same MIT terms.

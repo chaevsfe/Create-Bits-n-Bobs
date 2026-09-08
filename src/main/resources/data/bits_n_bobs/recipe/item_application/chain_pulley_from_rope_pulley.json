@@ -1,0 +1,17 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:chain_pulley"
+    }
+  ],
+  "type": "create:item_application",
+  "keep_held_item": true,
+  "results": [
+    {
+      "id": "bits_n_bobs:chain_pulley"
+    }
+  ],
+  "target": "create:rope_pulley",
+  "ingredient": "minecraft:iron_chain"
+}

@@ -1,0 +1,23 @@
+{
+  "fabric:load_conditions": [
+    {
+      "condition": "bits_n_bobs:feature_item_enabled",
+      "item": "bits_n_bobs:nixie_board"
+    }
+  ],
+  "type": "minecraft:crafting_shaped",
+  "category": "building",
+  "key": {
+    "Q": "create:polished_rose_quartz",
+    "P": "create:iron_sheet"
+  },
+  "pattern": [
+    "QQQ",
+    "QQQ",
+    " P "
+  ],
+  "result": {
+    "count": 8,
+    "id": "bits_n_bobs:nixie_board"
+  }
+}

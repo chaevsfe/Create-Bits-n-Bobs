@@ -1,0 +1,10 @@
+{
+	"render_type": "minecraft:translucent",
+	"format_version": "1.9.0",
+	"credit": "Made with Blockbench",
+	"textures": {
+		"particle": "bits_n_bobs:block/headlight/headlight"
+	},
+	"elements": [
+	]
+}

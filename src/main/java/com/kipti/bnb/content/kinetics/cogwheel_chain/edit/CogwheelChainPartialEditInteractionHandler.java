@@ -1,0 +1,231 @@
+package com.kipti.bnb.content.kinetics.cogwheel_chain.edit;
+
+import com.kipti.bnb.content.kinetics.cogwheel_chain.attachment.CogwheelChainAttachment;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.graph.CogwheelChain;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.graph.CogwheelChainCandidate;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.graph.PathedCogwheelNode;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.graph.PlacingCogwheelNode;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.placement.CogwheelChainPlacementInteraction;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.segment.CogwheelChainSegment;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.shape.CogwheelChainInteractionHandler;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.types.CogwheelChainType;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.world.CogwheelChainWorld;
+import com.kipti.bnb.network.BnbNetwork;
+import com.kipti.bnb.network.packets.from_client.PartialEditCogwheelChainPacket;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.ClientLevel;
+import net.minecraft.client.player.LocalPlayer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.state.BlockState;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.List;
+
+@Environment(EnvType.CLIENT)
+public final class CogwheelChainPartialEditInteractionHandler {
+
+    private static @Nullable CogwheelChainPartialEdit currentEditContext = null;
+    private static @Nullable ProposedPlacement proposedPlacement = null;
+
+    private CogwheelChainPartialEditInteractionHandler() {
+    }
+
+    public static boolean onRightClick() {
+        final LocalPlayer player = Minecraft.getInstance().player;
+        final ClientLevel level = Minecraft.getInstance().level;
+        if (player == null || level == null)
+            return false;
+
+        if (CogwheelChainPlacementInteraction.getCurrentBuildingChain() != null)
+            return false;
+
+        if (currentEditContext != null) {
+            if (player.isShiftKeyDown()) {
+                clearEditState();
+                return true;
+            }
+            return tryConfirmPlacement(player);
+        }
+
+        if (player.isShiftKeyDown())
+            return false;
+
+        return tryEnterEditMode(player, level);
+    }
+
+    private static boolean tryEnterEditMode(final LocalPlayer player, final ClientLevel level) {
+        final CogwheelChainPartialEdit editContext = resolveSelectedEditContext(player, level);
+        if (editContext == null)
+            return false;
+
+        currentEditContext = editContext;
+        proposedPlacement = null;
+        CogwheelChainPlacementInteraction.showActionBarMessage(
+                Component.translatable("tooltip.bits_n_bobs.chain_drive_partial_edit_hint")
+        );
+        return true;
+    }
+
+    private static boolean tryConfirmPlacement(final LocalPlayer player) {
+        final ProposedPlacement placement = proposedPlacement;
+        if (placement == null)
+            return true;
+
+        final CogwheelChainPartialEdit editContext = currentEditContext;
+        if (editContext == null)
+            return true;
+
+        final InteractionHand hand = resolveHeldCogwheelHand(player, editContext.chainType());
+        if (hand == null)
+            return true;
+
+        BnbNetwork.sendToServer(new PartialEditCogwheelChainPacket(
+                editContext.controllerPos(),
+                placement.pos(),
+                placement.hitDirection(),
+                hand.ordinal(),
+                editContext.chainPosition(),
+                editContext.startNodeIndex(),
+                editContext.endNodeIndex(),
+                editContext.startNode(),
+                editContext.endNode(),
+                editContext.chainType(),
+                editContext.chainItemType().builtInRegistryHolder()
+        ));
+        clearEditState();
+        return true;
+    }
+
+    private static @Nullable InteractionHand resolveHeldCogwheelHand(final LocalPlayer player,
+                                                                    final CogwheelChainType chainType) {
+        if (CogwheelChainPlacementInteraction.isCompatibleCogwheelItem(player.getMainHandItem(), chainType))
+            return InteractionHand.MAIN_HAND;
+        if (CogwheelChainPlacementInteraction.isCompatibleCogwheelItem(player.getOffhandItem(), chainType))
+            return InteractionHand.OFF_HAND;
+        return null;
+    }
+
+    private static @Nullable CogwheelChainPartialEdit resolveSelectedEditContext(final LocalPlayer player,
+                                                                                final ClientLevel level) {
+        final BlockPos controllerPos = CogwheelChainInteractionHandler.getSelectedController();
+        if (controllerPos == null || !level.isLoaded(controllerPos))
+            return null;
+
+        final CogwheelChainWorld chainWorld = CogwheelChainWorld.get(level);
+        final CogwheelChain chain = chainWorld.getChain(controllerPos);
+        if (chain == null)
+            return null;
+
+        if (CogwheelChainPlacementInteraction.getCompatibleCogwheelItemInHand(player, chain.getChainType()) == null)
+            return null;
+
+        final float chainPosition = CogwheelChainInteractionHandler.getSelectedChainPosition();
+        final CogwheelChainSegment selectedSegment = resolveSelectedSegment(level, controllerPos, chainPosition);
+        if (selectedSegment == null || selectedSegment.type() != CogwheelChainSegment.SegmentType.BETWEEN_NODES)
+            return null;
+
+        final SelectedSegmentNodes segmentNodes = resolveSelectedSegmentNodes(chain, controllerPos, selectedSegment);
+        if (segmentNodes == null)
+            return null;
+
+        return new CogwheelChainPartialEdit(
+                controllerPos.immutable(),
+                chainPosition,
+                selectedSegment,
+                segmentNodes.startNodeIndex(),
+                segmentNodes.endNodeIndex(),
+                segmentNodes.startNode(),
+                segmentNodes.endNode(),
+                chain.getChainType(),
+                chain.getReturnedItem()
+        );
+    }
+
+    private static @Nullable CogwheelChainSegment resolveSelectedSegment(final ClientLevel level,
+                                                                        final BlockPos controllerPos,
+                                                                        final float chainPosition) {
+        final CogwheelChainAttachment attachment = new CogwheelChainAttachment(controllerPos, chainPosition);
+        return attachment.getCurrentCogwheelChainSegment(level);
+    }
+
+    private static @Nullable SelectedSegmentNodes resolveSelectedSegmentNodes(final CogwheelChain chain,
+                                                                             final BlockPos controllerPos,
+                                                                             final CogwheelChainSegment selectedSegment) {
+        final List<PathedCogwheelNode> existingNodes = chain.getChainPathCogwheelNodes();
+        if (existingNodes.size() < 2)
+            return null;
+
+        int betweenNodesIndex = 0;
+        for (final CogwheelChainSegment segment : chain.getSegments()) {
+            if (segment.type() != CogwheelChainSegment.SegmentType.BETWEEN_NODES)
+                continue;
+
+            if (!segment.equals(selectedSegment)) {
+                betweenNodesIndex++;
+                continue;
+            }
+
+            final int startNodeIndex = betweenNodesIndex;
+            final int endNodeIndex = (betweenNodesIndex + 1) % existingNodes.size();
+            return new SelectedSegmentNodes(
+                    startNodeIndex,
+                    endNodeIndex,
+                    CogwheelChainPartialEditInsertionPlanner.toWorldNode(existingNodes.get(startNodeIndex), controllerPos),
+                    CogwheelChainPartialEditInsertionPlanner.toWorldNode(existingNodes.get(endNodeIndex), controllerPos)
+            );
+        }
+
+        return null;
+    }
+
+    public static void clearEditState() {
+        currentEditContext = null;
+        proposedPlacement = null;
+    }
+
+    public static boolean hasActiveEditContext() {
+        return currentEditContext != null;
+    }
+
+    public static @Nullable CogwheelChainPartialEdit getCurrentEditContext() {
+        return currentEditContext;
+    }
+
+    public static @Nullable BlockPos getEditingControllerPos() {
+        return currentEditContext == null ? null : currentEditContext.controllerPos();
+    }
+
+    public static @Nullable ProposedPlacement getProposedPlacement() {
+        return proposedPlacement;
+    }
+
+    public static void setProposedPlacement(final @Nullable ProposedPlacement placement) {
+        proposedPlacement = placement;
+    }
+
+    public static @Nullable CogwheelChainType getEditingChainType() {
+        return currentEditContext == null ? null : currentEditContext.chainType();
+    }
+
+    public static @Nullable Item getEditingChainItemType() {
+        return currentEditContext == null ? null : currentEditContext.chainItemType();
+    }
+
+    public record ProposedPlacement(BlockPos pos, CogwheelChainCandidate candidate, Direction hitDirection,
+                                    BlockState placementState) {
+
+        public ProposedPlacement {
+            pos = pos.immutable();
+        }
+    }
+
+    private record SelectedSegmentNodes(int startNodeIndex, int endNodeIndex, PlacingCogwheelNode startNode,
+                                        PlacingCogwheelNode endNode) {
+    }
+}
