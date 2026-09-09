@@ -3,6 +3,7 @@
 	"credit": "Made with Blockbench by Kipti.",
 	"texture_size": [32, 32],
 	"textures": {
+		"particle": "bits_n_bobs:block/flywheel_bearing",
 		"1": "bits_n_bobs:block/flywheel_bearing",
 		"4": "bits_n_bobs:block/large_dark_cogwheel",
 		"5": "create:block/bearing_top"

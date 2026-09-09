@@ -1,6 +1,7 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
+		"particle": "bits_n_bobs:block/chain_pulley_coil",
 		"2": "bits_n_bobs:block/chain_pulley_coil"
 	},
 	"elements": [

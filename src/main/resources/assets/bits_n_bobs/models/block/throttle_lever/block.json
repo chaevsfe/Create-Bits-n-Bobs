@@ -3,6 +3,7 @@
 	"credit": "Made with Blockbench",
 	"texture_size": [32, 32],
 	"textures": {
+		"particle": "bits_n_bobs:block/throttle_lever",
 		"0": "bits_n_bobs:block/throttle_lever"
 	},
 	"elements": [

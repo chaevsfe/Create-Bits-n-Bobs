@@ -1,2 +1,5 @@
 {
+	"textures": {
+		"particle": "bits_n_bobs:block/gigantic_cog"
+	}
 }
