@@ -1,7 +1,6 @@
 package com.kipti.bnb.network;
 
 import com.kipti.bnb.CreateBitsnBobs;
-import com.kipti.bnb.network.packets.from_client.CogwheelChainCarriageQueueDisassemblyPacket;
 import com.kipti.bnb.network.packets.from_client.CogwheelChainRidingPacket;
 import com.kipti.bnb.network.packets.from_client.DragInteractionUpdatePacket;
 import com.kipti.bnb.network.packets.from_client.PartialEditCogwheelChainPacket;
@@ -25,7 +24,6 @@ public enum BnbPackets implements BasePacketPayload.PacketTypeProvider {
     PLACE_COGWHEEL_CHAIN(PlaceCogwheelChainPacket.class, PlaceCogwheelChainPacket.STREAM_CODEC, true),
     WRENCH_COGWHEEL_CHAIN(WrenchCogwheelChainPacket.class, WrenchCogwheelChainPacket.STREAM_CODEC, true),
     PARTIAL_EDIT_COGWHEEL_CHAIN(PartialEditCogwheelChainPacket.class, PartialEditCogwheelChainPacket.STREAM_CODEC, true),
-    COGWHEEL_CHAIN_CARRIAGE_QUEUE_DISASSEMBLE(CogwheelChainCarriageQueueDisassemblyPacket.class, CogwheelChainCarriageQueueDisassemblyPacket.STREAM_CODEC, true),
     COGWHEEL_CHAIN_RIDING(CogwheelChainRidingPacket.class, CogwheelChainRidingPacket.STREAM_CODEC, true),
     DRAG_INTERACTION_UPDATE(DragInteractionUpdatePacket.class, DragInteractionUpdatePacket.STREAM_CODEC, true),
 
