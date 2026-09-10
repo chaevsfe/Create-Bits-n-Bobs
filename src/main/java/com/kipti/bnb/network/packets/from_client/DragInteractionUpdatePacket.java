@@ -8,6 +8,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.entity.BlockEntity;
 
@@ -29,7 +30,16 @@ public record DragInteractionUpdatePacket(
             return;
         }
 
-        BlockEntity blockEntity = player.level().getBlockEntity(this.pos);
+        if (player.isSpectator() || !player.mayBuild()) {
+            return;
+        }
+
+        ServerLevel level = player.level();
+        if (!level.isLoaded(this.pos) || !level.mayInteract(player, this.pos)) {
+            return;
+        }
+
+        BlockEntity blockEntity = level.getBlockEntity(this.pos);
         if (!(blockEntity instanceof SmartBlockEntity sbe)) {
             return;
         }
