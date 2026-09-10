@@ -54,7 +54,7 @@ public final class CogwheelChainEditPermission {
 
         final CogwheelChainBehaviour controller = resolveController(level, member);
         if (controller == null)
-            return true;
+            return false;
 
         final CogwheelChain chain = controller.getControlledChain();
         if (chain == null)
