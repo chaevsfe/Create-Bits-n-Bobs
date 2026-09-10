@@ -8,9 +8,9 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
 
 public record WrenchCogwheelChainPacket(
     BlockPos controllerPos,
@@ -35,7 +35,13 @@ public record WrenchCogwheelChainPacket(
         ) > PlacingCogwheelChain.getCogwheelMaxInteractionDistanceSq())
             return;
 
-        final Level level = player.level();
+        if (player.isSpectator() || !player.mayBuild())
+            return;
+
+        final ServerLevel level = player.level();
+        if (!level.isLoaded(this.controllerPos) || !level.mayInteract(player, this.controllerPos))
+            return;
+
         CogwheelChainBehaviour.breakChain(level, this.controllerPos, player);
         final CogwheelChainBehaviour behaviour = CogwheelChainBehaviour.get(
             level,
