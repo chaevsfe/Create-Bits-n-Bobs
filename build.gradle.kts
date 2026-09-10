@@ -35,18 +35,19 @@ sourceSets {
     }
 }
 
-val strutsJar = fileTree("../../create-struts/StrutYourStuff-Fly/build/libs") {
-    include("StrutYourStuff-*.jar")
-    exclude("*-sources.jar")
-}.files.maxByOrNull { it.lastModified() }
-    ?: error("No Strut Your Stuff jar in ../../create-struts/StrutYourStuff-Fly/build/libs")
+repositories {
+    flatDir {
+        dirs("libs", "../../create-struts/StrutYourStuff-Fly/build/libs")
+    }
+}
+val struts = ":StrutYourStuff:${property("struts_version")}+fabric-mc${property("minecraft_version")}"
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
     implementation("net.fabricmc:fabric-loader:${property("fabric_loader_version")}")
     implementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
     implementation("maven.modrinth:create-fly:${property("create_fabric_version")}")
-    compileOnly(files(strutsJar))
+    compileOnly(struts)
 
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
