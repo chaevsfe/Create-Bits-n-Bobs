@@ -20,6 +20,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
@@ -105,7 +106,15 @@ public record PartialEditCogwheelChainPacket(
         ) > 100)
             return;
 
-        final Level level = player.level();
+        if (player.isSpectator() || !player.mayBuild())
+            return;
+
+        final ServerLevel level = player.level();
+        if (!level.isLoaded(this.controllerPos) || !level.isLoaded(this.newCogwheelPos))
+            return;
+        if (!level.mayInteract(player, this.newCogwheelPos))
+            return;
+
         final CogwheelChainBehaviour behaviour = SuperBlockEntityBehaviour.get(
                 level,
                 this.controllerPos,
