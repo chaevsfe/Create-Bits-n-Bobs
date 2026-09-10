@@ -1,6 +1,9 @@
 package com.kipti.bnb.network.packets.from_client;
 
+import com.kipti.bnb.content.kinetics.cogwheel_chain.behaviour.CogwheelChainBehaviour;
+import com.kipti.bnb.content.kinetics.cogwheel_chain.graph.PlacingCogwheelChain;
 import com.kipti.bnb.content.kinetics.cogwheel_chain.riding.ServerCogwheelChainRidingHandler;
+import com.kipti.bnb.foundation.behaviour.SuperBlockEntityBehaviour;
 import com.kipti.bnb.mixin.ServerGamePacketListenerImplAccessor;
 import com.kipti.bnb.network.BnbPackets;
 import com.kipti.bnb.network.ServerboundPacketPayload;
@@ -8,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 public record CogwheelChainRidingPacket(
@@ -24,15 +28,37 @@ public record CogwheelChainRidingPacket(
 
     @Override
     public void handle(final ServerPlayer player) {
+        if (this.stop) {
+            ServerCogwheelChainRidingHandler.handleStopRidingPacket(player);
+            return;
+        }
+
+        if (player.isSpectator())
+            return;
+
+        final ServerLevel level = player.level();
+        if (!level.isLoaded(this.controllerPos))
+            return;
+
+        if (player.distanceToSqr(
+                this.controllerPos.getX() + 0.5,
+                this.controllerPos.getY() + 0.5,
+                this.controllerPos.getZ() + 0.5
+        ) > PlacingCogwheelChain.getCogwheelMaxInteractionDistanceSq())
+            return;
+
+        final CogwheelChainBehaviour behaviour = SuperBlockEntityBehaviour.get(
+                level,
+                this.controllerPos,
+                CogwheelChainBehaviour.TYPE
+        );
+        if (behaviour == null || !behaviour.isController() || behaviour.getControlledChain() == null)
+            return;
+
         player.fallDistance = 0;
         ((ServerGamePacketListenerImplAccessor) player.connection).bits_n_bobs$setAboveGroundTickCount(0);
         ((ServerGamePacketListenerImplAccessor) player.connection).bits_n_bobs$setAboveGroundVehicleTickCount(0);
-
-        if (this.stop) {
-            ServerCogwheelChainRidingHandler.handleStopRidingPacket(player);
-        } else {
-            ServerCogwheelChainRidingHandler.handleTTLPacket(player);
-        }
+        ServerCogwheelChainRidingHandler.handleTTLPacket(player);
     }
 
     @Override
