@@ -38,8 +38,8 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 
 /**
- * Sent from client to server when a player confirms a partial chain edit. The server places the cogwheel block, then
- * inserts the new node into the chain.
+ * Sent from client to server when a player confirms a partial chain edit. The server validates and plans the edit, then
+ * places the cogwheel block and inserts the new node into the chain.
  */
 public record PartialEditCogwheelChainPacket(
         BlockPos controllerPos,
