@@ -7,6 +7,7 @@ import com.kipti.bnb.foundation.behaviour.SuperBlockEntityBehaviour;
 import com.kipti.bnb.mixin.ServerGamePacketListenerImplAccessor;
 import com.kipti.bnb.network.BnbPackets;
 import com.kipti.bnb.network.ServerboundPacketPayload;
+import com.zurrtum.create.AllItemTags;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
@@ -34,6 +35,9 @@ public record CogwheelChainRidingPacket(
         }
 
         if (player.isSpectator())
+            return;
+
+        if (!player.isHolding(stack -> stack.is(AllItemTags.CHAIN_RIDEABLE)))
             return;
 
         final ServerLevel level = player.level();
