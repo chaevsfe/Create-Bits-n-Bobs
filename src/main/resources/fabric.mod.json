@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "id": "bits_n_bobs",
   "version": "${version}",
-  "name": "Create Fly: Bits n Bobs (Unofficial Port)",
+  "name": "Create Fly: Bits 'n' Bobs",
   "description": "Create: Bits 'n' Bobs port for Create Fly 26.2. Decoration, kinetics and trinkets for Create.",
   "authors": [
     "Cake",
