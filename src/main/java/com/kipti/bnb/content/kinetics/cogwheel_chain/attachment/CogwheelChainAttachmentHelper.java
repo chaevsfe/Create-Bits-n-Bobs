@@ -67,6 +67,39 @@ public class CogwheelChainAttachmentHelper {
         return new CogwheelChainAttachment(bestController, bestChainDist);
     }
 
+    public static double getDistanceSqToChain(final Level level,
+                                              final BlockPos controllerPos,
+                                              final CogwheelChain chain,
+                                              final Vec3 worldPos) {
+        final List<CogwheelChainSegment> segments = chain.getSegments();
+        if (segments.isEmpty()) return Double.MAX_VALUE;
+
+        final ChainCoordinateSpace coordinateSpace = ChainCoordinateSpace.forLogical(level, controllerPos);
+        final Vec3 localWorldPos = coordinateSpace.toLocal(worldPos);
+
+        double bestDistSq = Double.MAX_VALUE;
+        for (final CogwheelChainSegment segment : segments) {
+            final float chainDist = projectOntoSegment(
+                    localWorldPos,
+                    segment.fromPosition(),
+                    segment.toPosition(),
+                    segment
+            );
+
+            final Vec3 closest = interpolateSegment(
+                    segment.fromPosition(),
+                    segment.toPosition(),
+                    segment,
+                    chainDist
+            );
+            final double distSq = worldPos.distanceToSqr(coordinateSpace.toWorld(closest));
+            if (distSq < bestDistSq) {
+                bestDistSq = distSq;
+            }
+        }
+        return bestDistSq;
+    }
+
     @Nullable
     public static CogwheelChainAttachment findNearestAttachment(final Level level,
                                                                 final Vec3 origin,
