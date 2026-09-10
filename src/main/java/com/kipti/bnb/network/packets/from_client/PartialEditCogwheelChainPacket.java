@@ -127,6 +127,9 @@ public record PartialEditCogwheelChainPacket(
         if (existingChain == null || existingChain.getReturnedItem() != this.chainItemType.value())
             return;
 
+        if (!CogwheelChainEditPermission.mayEditChain(level, player, this.controllerPos, existingChain))
+            return;
+
         final InteractionHand interactionHand = InteractionHand.values()[Math.clamp(
                 this.hand,
                 0,

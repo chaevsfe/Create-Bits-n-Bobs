@@ -42,7 +42,6 @@ public record WrenchCogwheelChainPacket(
         if (!level.isLoaded(this.controllerPos) || !level.mayInteract(player, this.controllerPos))
             return;
 
-        CogwheelChainBehaviour.breakChain(level, this.controllerPos, player);
         final CogwheelChainBehaviour behaviour = CogwheelChainBehaviour.get(
             level,
             this.controllerPos,
@@ -50,6 +49,11 @@ public record WrenchCogwheelChainPacket(
         );
         if (behaviour == null)
             return;
+
+        if (!CogwheelChainEditPermission.mayEditChainOf(level, player, behaviour))
+            return;
+
+        CogwheelChainBehaviour.breakChain(level, this.controllerPos, player);
 
         final boolean infinite = player.hasInfiniteMaterials();
         final ItemStack drops = behaviour.destroyChain(false, true);

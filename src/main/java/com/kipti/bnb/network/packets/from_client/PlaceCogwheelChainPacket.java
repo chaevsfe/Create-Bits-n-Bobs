@@ -17,6 +17,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.item.Item;
 
@@ -54,7 +55,7 @@ public record PlaceCogwheelChainPacket(
         if (this.worldSpacePartialChain.maxBounds() > BnbServerSettings.cogwheelMaxBounds())
             return;
 
-        if (!player.mayBuild())
+        if (player.isSpectator() || !player.mayBuild())
             return;
 
         final BlockPos anchor = this.worldSpacePartialChain.getFirstNode().pos();
@@ -62,7 +63,11 @@ public record PlaceCogwheelChainPacket(
                 > PlacingCogwheelChain.getCogwheelMaxInteractionDistanceSq())
             return;
 
-        if (this.worldSpacePartialChain.checkMissingNodesInLevel(player.level(), this.chainType))
+        final ServerLevel level = player.level();
+        if (!CogwheelChainEditPermission.mayEditChain(level, player, this.worldSpacePartialChain))
+            return;
+
+        if (this.worldSpacePartialChain.checkMissingNodesInLevel(level, this.chainType))
             return;
 
         final int chainsRequired = this.worldSpacePartialChain.getChainsRequiredInLoop(this.chainType);
@@ -96,7 +101,7 @@ public record PlaceCogwheelChainPacket(
 
         final CogwheelChain chain = new CogwheelChain(chainGeometry, this.chainType, this.chainItemType.value());
 
-        chain.placeInLevel(player.level(), this.worldSpacePartialChain, player.isCreative());
+        chain.placeInLevel(level, this.worldSpacePartialChain, player.isCreative());
     }
 
     @Override
