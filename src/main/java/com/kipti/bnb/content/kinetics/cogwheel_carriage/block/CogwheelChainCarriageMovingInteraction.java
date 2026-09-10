@@ -19,23 +19,14 @@ public class CogwheelChainCarriageMovingInteraction extends MovingInteractionBeh
             return false;
         }
 
-        if (player instanceof final ServerPlayer serverPlayer && mayDisassemble(serverPlayer, cccce)) {
+        if (player instanceof final ServerPlayer serverPlayer && mayDisassemble(serverPlayer)) {
             cccce.disassembleNextTick();
         }
         return true;
     }
 
-    private static boolean mayDisassemble(final ServerPlayer player,
-                                          final CogwheelChainCarriageContraptionEntity carriage) {
-        if (player.isSpectator() || !player.mayBuild()) {
-            return false;
-        }
-        if (player.level() != carriage.level()) {
-            return false;
-        }
-        return carriage.getBoundingBox()
-                .inflate(player.entityInteractionRange())
-                .contains(player.getEyePosition());
+    private static boolean mayDisassemble(final ServerPlayer player) {
+        return !player.isSpectator() && player.mayBuild();
     }
 
 }
