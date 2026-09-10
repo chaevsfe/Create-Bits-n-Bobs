@@ -52,6 +52,10 @@
     "struts": "*",
     "java": ">=25"
   },
+  "suggests": {
+    "createreiviewer": "*",
+    "roughlyenoughitems": "*"
+  },
   "breaks": {
     "azimuth-api": "*",
     "sable": "*",

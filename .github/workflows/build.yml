@@ -34,6 +34,14 @@ jobs:
           mkdir -p libs
           curl -fsSL -o "libs/$STRUTS_JAR_NAME" "$STRUTS_JAR_URL"
 
+      - name: Fetch the Create Fly Recipe Viewer jar this mod nests
+        env:
+          VIEWER_JAR_NAME: CreateReiViewer-1.0.0-fly.26.2-beta.4+fabric-mc26.2.jar
+          VIEWER_JAR_URL: https://github.com/chaevsfe/CreateReiViewer-Fly/releases/download/1.0.0-fly.26.2-beta.4/CreateReiViewer-1.0.0-fly.26.2-beta.4%2Bfabric-mc26.2.jar
+        run: |
+          mkdir -p libs
+          curl -fsSL -o "libs/$VIEWER_JAR_NAME" "$VIEWER_JAR_URL"
+
       - name: Build from scratch
         run: ./gradlew clean build --no-build-cache --no-daemon
 

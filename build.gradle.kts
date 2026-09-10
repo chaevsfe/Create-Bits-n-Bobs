@@ -37,10 +37,15 @@ sourceSets {
 
 repositories {
     flatDir {
-        dirs("libs", "../../create-struts/StrutYourStuff-Fly/build/libs")
+        dirs(
+            "libs",
+            "../../create-struts/StrutYourStuff-Fly/build/libs",
+            "../../create-rei/CreateReiViewer-Fly/build/libs",
+        )
     }
 }
 val struts = ":StrutYourStuff:${property("struts_version")}+fabric-mc${property("minecraft_version")}"
+val recipeViewer = ":CreateReiViewer:${property("createreiviewer_version")}+fabric-mc${property("minecraft_version")}"
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
@@ -49,6 +54,7 @@ dependencies {
     implementation("maven.modrinth:create-fly:${property("create_fabric_version")}")
     compileOnly(struts)
     include(struts)
+    include(recipeViewer)
 
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
