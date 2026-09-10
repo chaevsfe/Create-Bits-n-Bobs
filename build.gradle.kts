@@ -48,6 +48,7 @@ dependencies {
     implementation("net.fabricmc.fabric-api:fabric-api:${property("fabric_api_version")}")
     implementation("maven.modrinth:create-fly:${property("create_fabric_version")}")
     compileOnly(struts)
+    include(struts)
 
     compileOnly("com.google.code.findbugs:jsr305:3.0.2")
 }
