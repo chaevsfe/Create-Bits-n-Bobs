@@ -141,13 +141,9 @@ public record PartialEditCogwheelChainPacket(
         if (placementState == null)
             return;
 
-        level.setBlock(this.newCogwheelPos, placementState, Block.UPDATE_ALL);
-
         final CogwheelChainPartialEdit editContext = this.resolveEditContext(existingChain);
-        if (editContext == null) {
-            level.setBlock(this.newCogwheelPos, originalState, Block.UPDATE_ALL);
+        if (editContext == null)
             return;
-        }
 
         final CogwheelChainPartialEditInsertionPlan insertionPlan;
         try {
@@ -161,24 +157,24 @@ public record PartialEditCogwheelChainPacket(
             CreateBitsnBobs.LOGGER.warn("Client sent an invalid chain edit request: {}", e.getMessage());
             return;
         }
-        if (insertionPlan == null) {
-            level.setBlock(this.newCogwheelPos, originalState, Block.UPDATE_ALL);
+        if (insertionPlan == null)
             return;
-        }
 
         final PlacingCogwheelChain rebuiltChain = insertionPlan.rebuiltChain();
-        if (rebuiltChain.checkMissingNodesInLevel(level, existingChain.getChainType())) {
-            level.setBlock(this.newCogwheelPos, originalState, Block.UPDATE_ALL);
-            return;
-        }
 
         final List<PathedCogwheelNode> chainGeometry;
         try {
             chainGeometry = this.buildChainGeometry(rebuiltChain);
         } catch (final ChainInteractionFailedException e) {
-            throw new RuntimeException("Failed to place into level after insertion plan was generated: " + e.getMessage(), e);
+            CreateBitsnBobs.LOGGER.warn("Client sent an unroutable chain edit request: {}", e.getMessage());
+            return;
         }
-        if (chainGeometry == null) {
+        if (chainGeometry == null)
+            return;
+
+        level.setBlock(this.newCogwheelPos, placementState, Block.UPDATE_ALL);
+
+        if (rebuiltChain.checkMissingNodesInLevel(level, existingChain.getChainType())) {
             level.setBlock(this.newCogwheelPos, originalState, Block.UPDATE_ALL);
             return;
         }
