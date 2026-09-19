@@ -53,7 +53,7 @@ public class ChairBlock extends SeatBlock implements IWrenchable {
     public static final BooleanProperty CORNER = BooleanProperty.create("corner");
 
     public ChairBlock(final Properties properties, final DyeColor color) {
-        super(color, properties);
+        super(properties, color);
         this.registerDefaultState(
                 defaultBlockState()
                         .setValue(LEFT_ARM, true)

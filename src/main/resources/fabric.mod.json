@@ -24,6 +24,7 @@
   "license": [
     "MIT"
   ],
+  "accessWidener": "bits_n_bobs.accesswidener",
   "icon": "assets/bits_n_bobs/icon.png",
   "environment": "*",
   "entrypoints": {

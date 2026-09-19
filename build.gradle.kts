@@ -22,6 +22,7 @@ repositories {
 }
 
 loom {
+    accessWidenerPath = file("src/main/resources/bits_n_bobs.accesswidener")
     mods {
         create("bits_n_bobs") {
             sourceSet(sourceSets.main.get())
@@ -107,6 +108,7 @@ val allowedResourcePrefixes = listOf(
     "META-INF/",
     "LICENSE",
     "NOTICE",
+    "bits_n_bobs.accesswidener",
     "bits_n_bobs.mixins.json",
     "bits_n_bobs.client.mixins.json",
     "fabric.mod.json",

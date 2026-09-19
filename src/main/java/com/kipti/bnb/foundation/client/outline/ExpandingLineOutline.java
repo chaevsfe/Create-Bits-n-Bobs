@@ -1,12 +1,13 @@
 package com.kipti.bnb.foundation.client.outline;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.zurrtum.create.client.catnip.outliner.LineOutline;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.phys.Vec3;
 import org.joml.Vector3d;
+import org.joml.Vector4f;
 
 @Environment(EnvType.CLIENT)
 public class ExpandingLineOutline extends LineOutline {
@@ -33,26 +34,26 @@ public class ExpandingLineOutline extends LineOutline {
     }
 
     @Override
-    protected void submitInner(final PoseStack ms, final SubmitNodeCollector collector, final Vec3 camera,
-                               final float pt, final Vector3d start, final Vector3d end, final float width,
-                               final int color, final int lightmap, final boolean disableNormals) {
+    protected void renderInner(final PoseStack ms, final VertexConsumer consumer, final Vec3 camera,
+                               final float pt, final float width, final Vector4f color, final int lightmap,
+                               final boolean disableNormals) {
         final double progress = easedProgress(pt);
-        final double midX = (start.x + end.x) / 2;
-        final double midY = (start.y + end.y) / 2;
-        final double midZ = (start.z + end.z) / 2;
+        final double midX = (this.start.x + this.end.x) / 2;
+        final double midY = (this.start.y + this.end.y) / 2;
+        final double midZ = (this.start.z + this.end.z) / 2;
 
         this.lerpedStart.set(
-                midX + (start.x - midX) * progress,
-                midY + (start.y - midY) * progress,
-                midZ + (start.z - midZ) * progress
+                midX + (this.start.x - midX) * progress,
+                midY + (this.start.y - midY) * progress,
+                midZ + (this.start.z - midZ) * progress
         );
         this.lerpedEnd.set(
-                midX + (end.x - midX) * progress,
-                midY + (end.y - midY) * progress,
-                midZ + (end.z - midZ) * progress
+                midX + (this.end.x - midX) * progress,
+                midY + (this.end.y - midY) * progress,
+                midZ + (this.end.z - midZ) * progress
         );
 
-        super.submitInner(ms, collector, camera, pt, this.lerpedStart, this.lerpedEnd, width, color, lightmap, disableNormals);
+        bufferCuboidLine(ms, consumer, camera, this.lerpedStart, this.lerpedEnd, width, color, lightmap, disableNormals);
     }
 
     private double easedProgress(final float pt) {

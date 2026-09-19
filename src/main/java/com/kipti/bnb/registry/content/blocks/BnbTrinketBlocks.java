@@ -90,7 +90,7 @@ public class BnbTrinketBlocks {
             .properties(p -> p
                     .noOcclusion()
                     .lightLevel(LightBlock::getLightLevel)
-                    .emissiveRendering(state -> state.getValue(LightBlock.POWER) > 0)
+                    .emissiveRendering((state, level, pos) -> state.getValue(LightBlock.POWER) > 0)
                     .forceSolidOn())
             
             .item()
@@ -106,7 +106,7 @@ public class BnbTrinketBlocks {
             .properties(p -> p
                     .noOcclusion()
                     .lightLevel(LightBlock::getLightLevel)
-                    .emissiveRendering(LightBlock::isEmissive)
+                    .emissiveRendering((state, level, pos) -> LightBlock.isEmissive(state))
                     .mapColor(DyeColor.ORANGE)
                     .forceSolidOn())
             
@@ -130,7 +130,7 @@ public class BnbTrinketBlocks {
             .properties(p -> p
                     .noOcclusion()
                     .lightLevel(LightBlock::getLightLevel)
-                    .emissiveRendering(state -> state.getValue(LightBlock.POWER) > 0)
+                    .emissiveRendering((state, level, pos) -> state.getValue(LightBlock.POWER) > 0)
                     .mapColor(DyeColor.ORANGE)
                     .forceSolidOn())
             

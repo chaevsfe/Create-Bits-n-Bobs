@@ -1,9 +1,9 @@
 package com.kipti.bnb.content.decoration.truss;
 
+import com.kipti.bnb.foundation.client.ModelParts;
 import com.kipti.bnb.foundation.client.QuadRotator;
 import com.kipti.bnb.registry.client.BnbPartialModels;
 import com.zurrtum.create.client.infrastructure.model.PipeAttachmentModel;
-import com.zurrtum.create.client.infrastructure.model.WrapperBlockStateModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -41,7 +41,7 @@ public class TrussPipeBlockModel extends PipeAttachmentModel {
         Direction.Axis axis = state.getValue(TrussBlock.AXIS);
 
         List<BlockStateModelPart> truss = new ArrayList<>();
-        WrapperBlockStateModel.addPartsWithInfo(BnbPartialModels.INDUSTRIAL_TRUSS.get(), level, pos, state, random, truss);
+        ModelParts.addWithInfo(BnbPartialModels.INDUSTRIAL_TRUSS.get(), level, pos, state, random, truss);
         if (truss.isEmpty())
             return;
 

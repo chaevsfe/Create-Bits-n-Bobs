@@ -57,7 +57,7 @@ public final class CogwheelChainRidingHelper {
         final Minecraft mc = Minecraft.getInstance();
         final Component hint = Component.translatable(
                 "mount.onboard", mc.options.keyShift.getTranslatedKeyMessage());
-        mc.gui.hud.setOverlayMessage(hint, false);
+        mc.gui.setOverlayMessage(hint, false);
         mc.getSoundManager().play(SimpleSoundInstance.forUI(SoundEvents.CHAIN_HIT, 1f, 0.5f));
     }
 

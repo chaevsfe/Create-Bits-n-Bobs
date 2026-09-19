@@ -1,9 +1,9 @@
 package com.kipti.bnb.content.decoration.weathered_girder;
 
+import com.kipti.bnb.foundation.client.ModelParts;
 import com.kipti.bnb.registry.client.BnbPartialModels;
 import com.zurrtum.create.catnip.data.Iterate;
 import com.zurrtum.create.client.infrastructure.model.CTModel;
-import com.zurrtum.create.client.infrastructure.model.WrapperBlockStateModel;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.block.BlockAndTintGetter;
@@ -40,7 +40,7 @@ public class WeatheredConnectedGirderModel extends CTModel {
         for (Direction d : Iterate.horizontalDirections) {
             if (!WeatheredGirderBlock.isConnected(level, pos, state, d))
                 continue;
-            WrapperBlockStateModel.addPartsWithInfo(
+            ModelParts.addWithInfo(
                     BnbPartialModels.WEATHERED_METAL_GIRDER_BRACKETS.get(d).get(), level, pos, state, random, parts);
         }
     }

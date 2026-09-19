@@ -240,7 +240,7 @@ public final class CogwheelChainPlacementInteraction {
     }
 
     public static void showActionBarMessage(final Component message) {
-        Minecraft.getInstance().gui.hud.setOverlayMessage(message, false);
+        Minecraft.getInstance().gui.setOverlayMessage(message, false);
     }
 
     public static @Nullable ItemStack getChainItemInHand(final LocalPlayer player) {
