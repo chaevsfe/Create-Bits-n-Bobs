@@ -146,7 +146,7 @@ public class NixieDisplayScenes {
         scene.overlay().showOutline(PonderPalette.OUTPUT, "front_row_dye", frontRowSel, 50);
         scene.idle(5);
         scene.overlay().showControls(util.vector().blockSurface(TUBE_FRONT_MIDDLE, Direction.NORTH), Pointing.LEFT, 30)
-                .withItem(Items.DYE.pick(DyeColor.PURPLE).getDefaultInstance());
+                .withItem(Items.PURPLE_DYE.getDefaultInstance());
         scene.idle(5);
         applyDye(
                 scene, DyeColor.PURPLE, c -> BnbTrinketBlocks.DYED_LARGE_NIXIE_TUBE.get(c).get(),
@@ -157,7 +157,7 @@ public class NixieDisplayScenes {
         scene.overlay().showOutline(PonderPalette.OUTPUT, "vert_col_dye", vertColSel, 50);
         scene.idle(5);
         scene.overlay().showControls(util.vector().blockSurface(TUBE_VERT_MIDDLE, Direction.WEST), Pointing.LEFT, 30)
-                .withItem(Items.DYE.pick(DyeColor.BLUE).getDefaultInstance());
+                .withItem(Items.BLUE_DYE.getDefaultInstance());
         scene.idle(5);
         applyDye(
                 scene, DyeColor.BLUE, c -> BnbTrinketBlocks.DYED_LARGE_NIXIE_TUBE.get(c).get(),
@@ -435,7 +435,7 @@ public class NixieDisplayScenes {
         scene.idle(25);
 
         scene.overlay().showControls(util.vector().blockSurface(BOARD_FRONT_MIDDLE, Direction.NORTH), Pointing.DOWN, 50)
-                .withItem(Items.DYE.pick(DyeColor.BLUE).getDefaultInstance());
+                .withItem(Items.BLUE_DYE.getDefaultInstance());
         scene.overlay().showOutline(PonderPalette.OUTPUT, "front_dye", frontRow, 50);
         scene.idle(20);
         applyDye(
@@ -449,7 +449,7 @@ public class NixieDisplayScenes {
                         Pointing.DOWN,
                         50
                 )
-                .withItem(Items.DYE.pick(DyeColor.PURPLE).getDefaultInstance());
+                .withItem(Items.PURPLE_DYE.getDefaultInstance());
         scene.overlay().showOutline(PonderPalette.OUTPUT, "back_bot_dye", backBottomRow, 50);
         scene.idle(20);
         applyDye(
@@ -463,7 +463,7 @@ public class NixieDisplayScenes {
                         Pointing.DOWN,
                         50
                 )
-                .withItem(Items.DYE.pick(DyeColor.PINK).getDefaultInstance());
+                .withItem(Items.PINK_DYE.getDefaultInstance());
         scene.overlay().showOutline(PonderPalette.OUTPUT, "back_top_dye", backTopRow, 50);
         scene.idle(20);
         applyDye(

@@ -78,7 +78,7 @@ public class DyedTankScenes {
 
         scene.overlay().showControls(util.vector().topOf(3, 4, 3), Pointing.DOWN, 40)
                 .rightClick()
-                .withItem(Items.DYE.pick(DyeColor.RED).getDefaultInstance());
+                .withItem(Items.RED_DYE.getDefaultInstance());
         scene.idle(7);
 
         dyeTankRegion(scene, 2, 1, 2, 4, 4, 4, DyeColor.RED);
@@ -99,7 +99,7 @@ public class DyedTankScenes {
 
         scene.overlay().showControls(util.vector().topOf(0, 2, 0), Pointing.DOWN, 40)
                 .rightClick()
-                .withItem(Items.DYE.pick(DyeColor.RED).getDefaultInstance());
+                .withItem(Items.RED_DYE.getDefaultInstance());
         scene.idle(7);
 
         scene.addInstruction(new DyeTankInstruction(new BlockPos(0, 2, 0), DyeColor.RED));

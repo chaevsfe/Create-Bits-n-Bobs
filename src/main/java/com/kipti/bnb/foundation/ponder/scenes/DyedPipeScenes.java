@@ -80,7 +80,7 @@ public class DyedPipeScenes {
      */
     private static void stageDyePipes(final CreateSceneBuilder scene, final SceneBuildingUtil util) {
         scene.overlay().showControls(util.vector().centerOf(3, 1, 1), Pointing.DOWN, 50)
-                .withItem(Items.DYE.pick(DyeColor.PINK).getDefaultInstance());
+                .withItem(Items.PINK_DYE.getDefaultInstance());
         scene.idle(10);
 
         // Batch 1
@@ -93,7 +93,7 @@ public class DyedPipeScenes {
 
         // Batch 2
         scene.overlay().showControls(util.vector().centerOf(2, 1, 3), Pointing.DOWN, 50 - 10 - 3 * 3)
-                .withItem(Items.DYE.pick(DyeColor.BLUE).getDefaultInstance());
+                .withItem(Items.BLUE_DYE.getDefaultInstance());
 
         scene.idle(10);
         scene.addInstruction(new DyePipeInstruction(new BlockPos(2, 1, 3), DyeColor.BLUE));
