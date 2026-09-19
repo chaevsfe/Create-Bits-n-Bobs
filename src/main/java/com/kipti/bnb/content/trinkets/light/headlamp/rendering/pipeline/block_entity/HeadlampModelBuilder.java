@@ -33,7 +33,7 @@ import java.util.List;
 public class HeadlampModelBuilder {
 
     public static List<BakedQuad> buildHeadlampGeometry(final long renderState) {
-        final int onOffBits = (int) (renderState & 0xFL);
+        final int onOffBits = (int) (renderState & HeadlampConstants.RENDER_STATE_ON_OFF_MASK);
         final HeadlampBlockEntity.HeadlampPlacement[] allPlacements = HeadlampBlockEntity.HeadlampPlacement.values();
         final List<BakedQuad> out = new ArrayList<>();
 

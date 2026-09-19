@@ -116,10 +116,10 @@ val allowedResourcePrefixes = listOf(
     "data/create/recipe/",
     "data/minecraft/tags/",
     "data/railways/tags/",
+    "assets/create/blockstates/",
     "assets/create/models/",
     "assets/create_connected/models/",
     "assets/create_hypertube/models/",
-    "assets/createcasing/models/",
     "assets/dndecor/models/",
 )
 

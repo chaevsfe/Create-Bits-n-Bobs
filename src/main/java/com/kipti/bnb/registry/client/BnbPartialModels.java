@@ -27,6 +27,10 @@ public class BnbPartialModels {
             ENCASED_FLANGED_COGWHEEL_BLOCK = block("flanged_gear/encased_cogwheel"),
             ENCASED_LARGE_FLANGED_COGWHEEL_BLOCK = block("flanged_gear/encased_large_cogwheel"),
 
+    MATERIAL_COGWHEEL = block("material_cogwheel/cogwheel"),
+            MATERIAL_COGWHEEL_SHAFTLESS = block("material_cogwheel/cogwheel_shaftless"),
+            MATERIAL_LARGE_COGWHEEL_SHAFTLESS = block("material_cogwheel/large_cogwheel_shaftless"),
+
 
     CHAIN_ROPE_COIL = block("chain_pulley/chain_coil"), CHAIN_ROPE_HALF = block("chain_pulley/chain_rope_half"),
             CHAIN_ROPE = block("chain_pulley/chain_rope"),

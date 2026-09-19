@@ -8,6 +8,7 @@
     "chain.ChainConveyorRidingHandlerMixin",
     "chain.PlayerSkyhookRendererAccessor",
     "chain.PlayerSkyhookRendererMixin",
+    "cogwheel_material.AllPartialModelsMixin",
     "cogwheel_material.BlockEntityRenderDispatcherMixin",
     "cogwheel_material.BlockEntityRenderHelperMixin",
     "cogwheel_material.CachedBuffersMixin",

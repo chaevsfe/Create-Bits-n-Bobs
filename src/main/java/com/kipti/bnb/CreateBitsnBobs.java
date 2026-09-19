@@ -42,8 +42,8 @@ public class CreateBitsnBobs {
     public static void init() {
         LOGGER.info("Bits 'n' Bobs is present!");
 
-        warnAboutCogwheelAssetReplacement("dndecor", "Create: Design n' Decor");
-        warnAboutCogwheelAssetReplacement("createcasing", "Create: Encased");
+        warnAboutCogwheelAssetReplacement("create_connected", "Create: Connected");
+        warnAboutCogwheelAssetReplacement("create_hypertube", "Create: Hypertubes");
 
         BnbConfigs.register();
         BnbResourceConditions.register();
@@ -75,7 +75,7 @@ public class CreateBitsnBobs {
 
     private static void warnAboutCogwheelAssetReplacement(final String modId, final String modName) {
         if (FabricLoader.getInstance().isModLoaded(modId)) {
-            LOGGER.warn("Bits 'n' bobs is replacing assets inside {} with ones using the default cogwheel model instead of the modified cogwheel model, this may cause some visual inconsitency!", modName);
+            LOGGER.warn("Bits 'n' bobs is replacing cogwheel assets inside {} so they can be remapped to wooden materials!", modName);
         }
     }
 
