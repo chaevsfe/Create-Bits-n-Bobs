@@ -22,16 +22,15 @@ public abstract class BlockEntityRenderDispatcherMixin {
             E blockEntity,
             float tickProgress,
             ModelFeatureRenderer.CrumblingOverlay crumblingOverlay,
-            boolean force,
             Operation<S> original
     ) {
         BlockState material = CogwheelMaterialFunnel.materialOf(blockEntity);
         if (material == null)
-            return original.call(blockEntity, tickProgress, crumblingOverlay, force);
+            return original.call(blockEntity, tickProgress, crumblingOverlay);
 
         CogwheelMaterialFunnel.push(material);
         try {
-            return original.call(blockEntity, tickProgress, crumblingOverlay, force);
+            return original.call(blockEntity, tickProgress, crumblingOverlay);
         } finally {
             CogwheelMaterialFunnel.pop();
         }

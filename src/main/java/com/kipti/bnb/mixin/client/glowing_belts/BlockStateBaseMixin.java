@@ -2,6 +2,8 @@ package com.kipti.bnb.mixin.client.glowing_belts;
 
 import com.kipti.bnb.foundation.BnbBlockStateProperties;
 import com.zurrtum.create.AllBlocks;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import org.spongepowered.asm.mixin.Mixin;
@@ -13,7 +15,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public class BlockStateBaseMixin {
 
     @Inject(method = "emissiveRendering", at = @At("HEAD"), cancellable = true)
-    private void bits_n_bobs$glowingBeltIsEmissive(final CallbackInfoReturnable<Boolean> cir) {
+    private void bits_n_bobs$glowingBeltIsEmissive(final BlockGetter level, final BlockPos pos,
+                                                  final CallbackInfoReturnable<Boolean> cir) {
         final BlockState state = (BlockState) (Object) this;
         if (state.getBlock() != AllBlocks.BELT)
             return;

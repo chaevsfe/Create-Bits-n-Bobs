@@ -13,6 +13,7 @@
     "cogwheel_material.BlockEntityRenderHelperMixin",
     "cogwheel_material.CachedBuffersMixin",
     "cogwheel_material.CogwheelMaterialVisualMixin",
+    "cogwheel_material.EncasedCogMaterialVisualMixin",
     "dyeable.FluidTankRendererMixin",
     "dyeable.FluidValveRendererMixin",
     "model.AllModelsMixin",
