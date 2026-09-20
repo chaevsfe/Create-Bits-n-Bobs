@@ -141,8 +141,8 @@ public class BnbKineticBlocks {
                     .transform(axeOrPickaxe())
                     .properties(p -> p.noOcclusion())
                     
-                    
-                    
+                    .onRegister(movementBehaviour(new CogwheelChainCarriageMovementBehaviour()))
+                    .onRegister(interactionBehaviour(new CogwheelChainCarriageMovingInteraction()))
                     .item()
                     
                     .build()
