@@ -73,4 +73,10 @@ public class DyeableBlockStateModel extends WrapperBlockStateModel {
         if (entry != null)
             out.add(entry);
     }
+
+    public static void addAll(List<SpriteShiftEntry> out, Map<DyeColor, List<SpriteShiftEntry>> shifts, DyeColor color) {
+        List<SpriteShiftEntry> entries = shifts.get(color);
+        if (entries != null)
+            out.addAll(entries);
+    }
 }
