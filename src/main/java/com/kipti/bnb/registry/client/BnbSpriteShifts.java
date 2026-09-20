@@ -22,7 +22,7 @@ public class BnbSpriteShifts {
     public static final SpriteShiftEntry
         CHAIN_PULLEY_COIL = get("block/chain_pulley_coil", "block/chain_pulley_coil_scroll"),
         CHAIN_ROPE = SpriteShifter.get(
-            Identifier.withDefaultNamespace("block/chain"),
+            Identifier.withDefaultNamespace("block/iron_chain"),
             CreateBitsnBobs.asResource("block/chain_scroll")
         );
 
