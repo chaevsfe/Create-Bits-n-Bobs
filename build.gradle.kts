@@ -94,6 +94,9 @@ val connectedTextureSheets = mapOf(
     "assets/bits_n_bobs/textures/block/industrial_grating_cutout_connected.png" to ConnectedTextureLayout(8, omniTileIndexes),
     "assets/bits_n_bobs/textures/block/industrial_grating_pipe_cutout_connected.png" to ConnectedTextureLayout(8, omniTileIndexes),
     "assets/bits_n_bobs/textures/block/weathered_girder_pole_side_connected.png" to ConnectedTextureLayout(2, verticalTileIndexes),
+    "assets/bits_n_bobs/textures/block/industrial_iron_encased_cogwheel_side_connected.png" to ConnectedTextureLayout(2, verticalTileIndexes),
+    "assets/bits_n_bobs/textures/block/weathered_iron_encased_cogwheel_side_connected.png" to ConnectedTextureLayout(2, verticalTileIndexes),
+    "assets/bits_n_bobs/textures/block/chiseled_planks_connected.png" to ConnectedTextureLayout(8, omniTileIndexes),
     "assets/bits_n_bobs/textures/block/dyed_fluid_tank/fluid_tank_connected_*.png" to
         ConnectedTextureLayout(4, rectangleTileIndexes, rectangleSingleTileIndex),
     "assets/bits_n_bobs/textures/block/dyed_fluid_tank/fluid_tank_top_connected_*.png" to
@@ -107,7 +110,7 @@ val generateConnectedTextureSprites = tasks.register("generateConnectedTextureSp
     inputs.files(fileTree(resourceRoot) { include(connectedTextureSheets.keys) })
         .withPropertyName("connectedTextureSheets")
         .withPathSensitivity(PathSensitivity.RELATIVE)
-    inputs.property("connectedTextureLayout", "create-fly-26.2-v2")
+    inputs.property("connectedTextureLayout", "create-fly-26.2-v3")
     outputs.dir(generatedConnectedTextureResources)
     doLast {
         val outputRoot = generatedConnectedTextureResources.get().asFile
