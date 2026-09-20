@@ -60,9 +60,9 @@ public final class BnbDyeableModels {
 
             @Override
             public void collectShifts(BlockState state, DyeColor color, List<SpriteShiftEntry> out) {
-                DyeableBlockStateModel.add(out, BnbSpriteShifts.DYED_FLUID_TANK_CONNECTED, color);
-                DyeableBlockStateModel.add(out, BnbSpriteShifts.DYED_FLUID_TANK_TOP_CONNECTED, color);
-                DyeableBlockStateModel.add(out, BnbSpriteShifts.DYED_FLUID_TANK_INNER_CONNECTED, color);
+                DyeableBlockStateModel.addAll(out, BnbSpriteShifts.DYED_FLUID_TANK, color);
+                DyeableBlockStateModel.addAll(out, BnbSpriteShifts.DYED_FLUID_TANK_TOP, color);
+                DyeableBlockStateModel.addAll(out, BnbSpriteShifts.DYED_FLUID_TANK_INNER, color);
                 DyeableBlockStateModel.add(out, BnbSpriteShifts.DYED_FLUID_TANK_WINDOW, color);
                 DyeableBlockStateModel.add(out, BnbSpriteShifts.DYED_FLUID_TANK_WINDOW_SINGLE, color);
             }

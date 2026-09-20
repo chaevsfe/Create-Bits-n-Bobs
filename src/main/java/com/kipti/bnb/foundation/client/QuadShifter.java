@@ -24,9 +24,9 @@ import java.util.function.Function;
  * {@code BakedModelHelper}: {@code calcSpriteUv} moves one packed UV from the original sprite's frame into the
  * target's, and {@code replaceBakedQuadUV} makes the new quad.
  * <p>
- * Quads are matched to a shift entry the way upstream matched them: by sprite identity first and, failing that, by
- * whether every vertex UV lies inside the original sprite. The second test is what makes this work after a
- * connected-texture pass, which leaves quads pointing at a sheet rather than at the sprite they were baked with.
+ * Quads are matched to a shift entry the way upstream matched them: by whether every vertex UV lies inside the
+ * original sprite. Create Fly's connected-texture pass moves a quad's UVs into a per-tile sprite but leaves the sprite
+ * the quad reports unchanged, so the reported sprite says nothing about which tile the quad draws.
  */
 @Environment(EnvType.CLIENT)
 public final class QuadShifter {
@@ -50,9 +50,7 @@ public final class QuadShifter {
 
     public static boolean matches(BakedQuad quad, SpriteShiftEntry shift) {
         TextureAtlasSprite original = shift.getOriginal();
-        if (original == null)
-            return false;
-        return quad.materialInfo().sprite() == original || uvWithinSprite(quad, original);
+        return original != null && uvWithinSprite(quad, original);
     }
 
     @Nullable

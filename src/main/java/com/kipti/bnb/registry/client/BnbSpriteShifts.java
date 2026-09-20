@@ -1,6 +1,7 @@
 package com.kipti.bnb.registry.client;
 
 import com.kipti.bnb.CreateBitsnBobs;
+import com.zurrtum.create.client.AllSpriteShifts;
 import com.zurrtum.create.client.foundation.block.connected.AllCTTypes;
 import com.zurrtum.create.client.foundation.block.connected.CTSpriteShiftEntry;
 import com.zurrtum.create.client.foundation.block.connected.CTSpriteShifter;
@@ -10,8 +11,10 @@ import com.zurrtum.create.client.catnip.render.SpriteShifter;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.DyeColor;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
+import java.util.List;
 import java.util.Map;
 
 public class BnbSpriteShifts {
@@ -77,17 +80,20 @@ public class BnbSpriteShifts {
         "dyed_pipes"
     );
 
-    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_CONNECTED = getDyedSpriteShifts(
-        "fluid_tank_connected",
-        "dyed_fluid_tank"
+    public static final Map<DyeColor, List<SpriteShiftEntry>> DYED_FLUID_TANK = getDyedConnectedSpriteShifts(
+        "fluid_tank",
+        "dyed_fluid_tank",
+        AllSpriteShifts.FLUID_TANK
     );
-    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_TOP_CONNECTED = getDyedSpriteShifts(
-        "fluid_tank_top_connected",
-        "dyed_fluid_tank"
+    public static final Map<DyeColor, List<SpriteShiftEntry>> DYED_FLUID_TANK_TOP = getDyedConnectedSpriteShifts(
+        "fluid_tank_top",
+        "dyed_fluid_tank",
+        AllSpriteShifts.FLUID_TANK_TOP
     );
-    public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_INNER_CONNECTED = getDyedSpriteShifts(
-        "fluid_tank_inner_connected",
-        "dyed_fluid_tank"
+    public static final Map<DyeColor, List<SpriteShiftEntry>> DYED_FLUID_TANK_INNER = getDyedConnectedSpriteShifts(
+        "fluid_tank_inner",
+        "dyed_fluid_tank",
+        AllSpriteShifts.FLUID_TANK_INNER
     );
     public static final Map<DyeColor, SpriteShiftEntry> DYED_FLUID_TANK_WINDOW = getDyedSpriteShifts(
         "fluid_tank_window",
@@ -141,6 +147,27 @@ public class BnbSpriteShifts {
                     CreateBitsnBobs.asResource("block/" + targetFolder + "/" + sourceTexture + "_" + color.getName())
                 )
             );
+        }
+        return Collections.unmodifiableMap(map);
+    }
+
+    public static Map<DyeColor, List<SpriteShiftEntry>> getDyedConnectedSpriteShifts(
+        final String sourceTexture,
+        final String targetFolder,
+        final CTSpriteShiftEntry connectedShift) {
+        final int tiles = connectedShift.getType().getSpriteSize();
+        final Map<DyeColor, List<SpriteShiftEntry>> map = new EnumMap<>(DyeColor.class);
+        for (final DyeColor color : DyeColor.values()) {
+            final Identifier original = Identifier.fromNamespaceAndPath("create", "block/" + sourceTexture);
+            final Identifier originalConnected = original.withSuffix("_connected");
+            final String target = "block/" + targetFolder + "/" + sourceTexture;
+            final Identifier targetConnected = CreateBitsnBobs.asResource(target + "_connected_" + color.getName());
+            final List<SpriteShiftEntry> shifts = new ArrayList<>(tiles);
+            shifts.add(SpriteShifter.get(original, CreateBitsnBobs.asResource(target + "_" + color.getName())));
+            for (int tile = 1; tile < tiles; tile++) {
+                shifts.add(SpriteShifter.get(originalConnected.withSuffix("/" + tile), targetConnected.withSuffix("/" + tile)));
+            }
+            map.put(color, List.copyOf(shifts));
         }
         return Collections.unmodifiableMap(map);
     }
