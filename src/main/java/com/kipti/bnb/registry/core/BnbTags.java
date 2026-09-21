@@ -10,6 +10,7 @@ import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class BnbTags {
@@ -85,6 +86,15 @@ public class BnbTags {
         BnbBlockTags() {
             final Identifier id = Identifier.fromNamespaceAndPath(CreateBitsnBobs.MOD_ID, Lang.asId(this.name()));
             this.tag = TagKey.create(Registries.BLOCK, id);
+        }
+
+        public static boolean bound() {
+            try {
+                Blocks.AIR.builtInRegistryHolder().is(BlockTags.LOGS);
+                return true;
+            } catch (final IllegalStateException unbound) {
+                return false;
+            }
         }
 
         @SuppressWarnings("deprecation")
