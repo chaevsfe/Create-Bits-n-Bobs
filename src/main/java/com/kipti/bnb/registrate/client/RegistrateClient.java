@@ -16,17 +16,24 @@
 package com.kipti.bnb.registrate.client;
 
 import com.zurrtum.create.client.AllBlockEntityRenders;
+import com.zurrtum.create.client.AllEntityRenders;
 import com.zurrtum.create.client.flywheel.lib.visualization.SimpleBlockEntityVisualizer;
+import com.zurrtum.create.client.flywheel.lib.visualization.SimpleEntityVisualizer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderer;
 import net.minecraft.client.renderer.blockentity.BlockEntityRendererProvider;
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import com.kipti.bnb.registrate.ClientHookSink;
 import com.kipti.bnb.registrate.Registrate;
 import com.kipti.bnb.registrate.fn.NonNullFunction;
 import com.kipti.bnb.utility.SimpleBlockEntityVisualFactory;
+import com.kipti.bnb.utility.SimpleEntityVisualFactory;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -57,6 +64,31 @@ public final class RegistrateClient implements ClientHookSink {
             return;
         }
         AllBlockEntityRenders.visual(type, provider(renderer), factory, skipVanillaRender);
+    }
+
+    @Override
+    public <T extends Entity> void renderer(EntityType<T> type, Supplier<?> renderer) {
+        AllEntityRenders.render(type, entityProvider(renderer));
+    }
+
+    @Override
+    public <T extends Entity> void visual(EntityType<T> type, Supplier<?> renderer, Supplier<?> visual) {
+        if (renderer != null)
+            AllEntityRenders.render(type, entityProvider(renderer));
+        new SimpleEntityVisualizer.Builder<>(type).factory(entityVisualizer(visual)).neverSkipVanillaRender().apply();
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Entity> EntityRendererProvider<T> entityProvider(Supplier<?> renderer) {
+        NonNullFunction<EntityRendererProvider.Context, EntityRenderer<T, ?>> function =
+                (NonNullFunction<EntityRendererProvider.Context, EntityRenderer<T, ?>>) renderer.get();
+        return function::apply;
+    }
+
+    @SuppressWarnings("unchecked")
+    private static <T extends Entity> SimpleEntityVisualizer.Factory<T> entityVisualizer(Supplier<?> visual) {
+        SimpleEntityVisualFactory<T> recorded = (SimpleEntityVisualFactory<T>) visual.get();
+        return recorded::create;
     }
 
     @SuppressWarnings("unchecked")

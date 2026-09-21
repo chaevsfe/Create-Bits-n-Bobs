@@ -8,6 +8,10 @@ import com.kipti.bnb.registrate.CreateRegistrate;
 import com.kipti.bnb.registrate.builders.EntityBuilder;
 import com.kipti.bnb.registrate.entry.EntityEntry;
 import com.kipti.bnb.registrate.fn.NonNullConsumer;
+import com.zurrtum.create.client.content.contraptions.render.ControlledContraptionEntityRenderer;
+import com.zurrtum.create.client.content.contraptions.render.ControlledContraptionVisual;
+import com.zurrtum.create.client.content.contraptions.render.OrientedContraptionEntityRenderer;
+import com.zurrtum.create.client.content.contraptions.render.OrientedContraptionVisual;
 import com.zurrtum.create.content.contraptions.AbstractContraptionEntity;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
@@ -17,10 +21,14 @@ public class BnbEntityTypes {
 
     public static final EntityEntry<InertControlledContraptionEntity> INERT_CONTROLLED_CONTRAPTION =
             contraption("inert_stationary_contraption", InertControlledContraptionEntity::new, 20, 40, false)
+                    .renderer(() -> ControlledContraptionEntityRenderer::new)
+                    .visual(() -> ControlledContraptionVisual::new)
                     .register();
 
     public static final EntityEntry<CogwheelChainCarriageContraptionEntity> COGWHEEL_CHAIN_CARRIAGE_CONTRAPTION =
             contraption("cogwheel_chain_carriage_contraption", CogwheelChainCarriageContraptionEntity::new, 20, 40, false)
+                    .renderer(() -> OrientedContraptionEntityRenderer::new)
+                    .visual(() -> OrientedContraptionVisual::new)
                     .register();
 
     private static <T extends Entity> EntityBuilder<T, CreateRegistrate> contraption(final String name,
