@@ -89,12 +89,20 @@ public class BnbTags {
 
         @SuppressWarnings("deprecation")
         public boolean matches(final Block item) {
-            return item.builtInRegistryHolder()
-                    .is(this.tag);
+            try {
+                return item.builtInRegistryHolder()
+                        .is(this.tag);
+            } catch (final IllegalStateException unbound) {
+                return false;
+            }
         }
 
         public boolean matches(final BlockState stack) {
-            return stack.is(this.tag);
+            try {
+                return stack.is(this.tag);
+            } catch (final IllegalStateException unbound) {
+                return false;
+            }
         }
 
         private static void register() {
