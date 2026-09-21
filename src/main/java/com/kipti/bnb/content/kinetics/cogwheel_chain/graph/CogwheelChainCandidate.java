@@ -41,7 +41,13 @@ public record CogwheelChainCandidate(Direction.Axis axis, boolean isLarge, boole
     }
 
     public static boolean isValidCandidate(final Block blockToCheck) {
-        return VALID_BLOCKS_CACHE.computeIfAbsent(blockToCheck, (block) -> {
+        if (!BnbTags.BnbBlockTags.bound())
+            return computeValidCandidate(blockToCheck);
+        return VALID_BLOCKS_CACHE.computeIfAbsent(blockToCheck, CogwheelChainCandidate::computeValidCandidate);
+    }
+
+    private static boolean computeValidCandidate(final Block block) {
+        {
 
             if (!(block instanceof ICogWheel ||
                     block instanceof IExclusiveCogwheelChainBlock ||
@@ -65,7 +71,7 @@ public record CogwheelChainCandidate(Direction.Axis axis, boolean isLarge, boole
             //This check has to be as late as possible to avoid impact (and gets cached)
             final Class<?> be = ibe.getBlockEntityClass();
             return KineticBlockEntity.class.isAssignableFrom(be);
-        });
+        }
     }
 
     public static boolean isLargeCogwheel(final BlockState state) {
