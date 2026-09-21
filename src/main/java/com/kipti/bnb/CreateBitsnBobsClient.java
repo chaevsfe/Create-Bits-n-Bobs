@@ -7,6 +7,7 @@ import com.kipti.bnb.content.decoration.cogwheel_material.CogwheelMaterialRender
 import com.kipti.bnb.foundation.behaviour.drag.DragInteractionClientHandler;
 import com.kipti.bnb.foundation.client.BnbClientEvents;
 import com.kipti.bnb.foundation.client.GenericBlockEntityRenderModels;
+import com.kipti.bnb.foundation.client.tooltip.BnbTooltipBehaviours;
 import com.kipti.bnb.foundation.ponder.BnbPonderPlugin;
 import com.kipti.bnb.registrate.client.RegistrateClient;
 import com.kipti.bnb.registry.client.BnbPartialModels;
@@ -37,6 +38,7 @@ public final class CreateBitsnBobsClient {
         CogwheelChainLevelRenderer.register();
         DragInteractionClientHandler.register();
         BnbClientEvents.register();
+        BnbTooltipBehaviours.register();
 
         SuperByteBufferCache.getInstance().registerCompartment(GiganticCogwheelRenderer.GIGANTIC_COGWHEEL_CACHE);
         SuperByteBufferCache.getInstance().registerCompartment(HeadlampVertexBufferCache.HEADLAMP);
