@@ -35,6 +35,7 @@ import com.kipti.bnb.registrate.fn.NonNullUnaryOperator;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class BlockBuilder<T extends Block, P> extends AbstractBuilder<T, P, BlockBuilder<T, P>> {
     private final NonNullFunction<BlockBehaviour.Properties, T> factory;
@@ -61,7 +62,10 @@ public class BlockBuilder<T extends Block, P> extends AbstractBuilder<T, P, Bloc
 
 
     public BlockBuilder<T, P> defaultLoot() {
-        return this;
+        return properties(p -> p.overrideLootTable(Optional.of(ResourceKey.create(
+                Registries.LOOT_TABLE,
+                getId().withPrefix("blocks/")
+        ))));
     }
 
     @SafeVarargs

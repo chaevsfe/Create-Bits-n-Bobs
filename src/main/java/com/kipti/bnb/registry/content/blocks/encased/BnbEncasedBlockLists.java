@@ -33,7 +33,7 @@ public class BnbEncasedBlockLists {
                     .transform(axeOrPickaxe())
                     
                     
-                    
+                    .defaultLoot()
                     .simpleItem()
                     .register());
 
