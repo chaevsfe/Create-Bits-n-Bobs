@@ -15,6 +15,8 @@
  */
 package com.kipti.bnb.registrate.builders;
 
+import net.minecraft.client.renderer.entity.EntityRenderer;
+import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
@@ -23,17 +25,24 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.MobCategory;
+import org.jetbrains.annotations.Nullable;
 import com.kipti.bnb.registrate.Registrate;
 import com.kipti.bnb.registrate.entry.EntityEntry;
 import com.kipti.bnb.registrate.fn.NonNullConsumer;
+import com.kipti.bnb.registrate.fn.NonNullFunction;
+import com.kipti.bnb.registrate.fn.NonNullSupplier;
+import com.kipti.bnb.utility.SimpleEntityVisualFactory;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Supplier;
 
 public class EntityBuilder<T extends Entity, P> extends AbstractBuilder<EntityType<T>, P, EntityBuilder<T, P>> {
     private final EntityType.EntityFactory<T> factory;
     private final MobCategory category;
     private final List<NonNullConsumer<EntityType.Builder<T>>> propertyOperators = new ArrayList<>();
+    private Supplier<?> renderer;
+    private Supplier<?> visualFactory;
 
     public EntityBuilder(Registrate owner, P parent, String name, EntityType.EntityFactory<T> factory, MobCategory category) {
         super(owner, name, parent);
@@ -44,6 +53,33 @@ public class EntityBuilder<T extends Entity, P> extends AbstractBuilder<EntityTy
     public EntityBuilder<T, P> properties(NonNullConsumer<EntityType.Builder<T>> operator) {
         propertyOperators.add(operator);
         return this;
+    }
+
+    public EntityBuilder<T, P> renderer(NonNullSupplier<NonNullFunction<EntityRendererProvider.Context, EntityRenderer<? super T, ?>>> renderer) {
+        this.renderer = renderer;
+        return this;
+    }
+
+    public EntityBuilder<T, P> visual(NonNullSupplier<SimpleEntityVisualFactory<T>> visualFactory) {
+        this.visualFactory = visualFactory;
+        return this;
+    }
+
+    @Nullable
+    protected Supplier<?> rendererSupplier() {
+        return renderer;
+    }
+
+    protected void registerClientHooks(EntityType<T> type) {
+        Supplier<?> factory = rendererSupplier();
+        if (visualFactory != null) {
+            Supplier<?> visual = visualFactory;
+            Registrate.addClientHook(sink -> sink.visual(type, factory, visual));
+            return;
+        }
+        if (factory == null)
+            return;
+        Registrate.addClientHook(sink -> sink.renderer(type, factory));
     }
 
     public EntityEntry<T> register() {
@@ -58,6 +94,7 @@ public class EntityBuilder<T extends Entity, P> extends AbstractBuilder<EntityTy
         getOwner().track(Registries.ENTITY_TYPE, entry);
         runRegisterCallbacks(type);
         queueAfterRegisterCallbacks(type);
+        registerClientHooks(type);
         return entry;
     }
 }

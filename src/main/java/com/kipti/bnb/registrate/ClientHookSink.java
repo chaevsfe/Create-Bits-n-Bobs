@@ -15,6 +15,8 @@
  */
 package com.kipti.bnb.registrate;
 
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 
@@ -25,4 +27,8 @@ public interface ClientHookSink {
     <T extends BlockEntity> void renderer(BlockEntityType<T> type, Supplier<?> renderer);
 
     <T extends BlockEntity> void visual(BlockEntityType<T> type, Supplier<?> renderer, Supplier<?> visual, Predicate<T> renderNormally);
+
+    <T extends Entity> void renderer(EntityType<T> type, Supplier<?> renderer);
+
+    <T extends Entity> void visual(EntityType<T> type, Supplier<?> renderer, Supplier<?> visual);
 }
