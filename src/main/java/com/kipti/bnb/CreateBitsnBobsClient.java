@@ -9,6 +9,7 @@ import com.kipti.bnb.foundation.client.BnbClientEvents;
 import com.kipti.bnb.foundation.client.GenericBlockEntityRenderModels;
 import com.kipti.bnb.foundation.client.audio.BnbAudioBehaviours;
 import com.kipti.bnb.foundation.client.tooltip.BnbTooltipBehaviours;
+import com.kipti.bnb.foundation.client.tooltip.BnbTooltipModifiers;
 import com.kipti.bnb.foundation.ponder.BnbPonderPlugin;
 import com.kipti.bnb.registrate.client.RegistrateClient;
 import com.kipti.bnb.registry.client.BnbPartialModels;
@@ -40,6 +41,7 @@ public final class CreateBitsnBobsClient {
         DragInteractionClientHandler.register();
         BnbClientEvents.register();
         BnbTooltipBehaviours.register();
+        BnbTooltipModifiers.register();
         BnbAudioBehaviours.register();
 
         SuperByteBufferCache.getInstance().registerCompartment(GiganticCogwheelRenderer.GIGANTIC_COGWHEEL_CACHE);
