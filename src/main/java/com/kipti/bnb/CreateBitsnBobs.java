@@ -35,6 +35,7 @@ public class CreateBitsnBobs {
     public static final CreateRegistrate REGISTRATE = CreateRegistrate.create(MOD_ID);
 
     public static void registerBlocksEarly() {
+        REGISTRATE.setCreativeTab(BnbCreativeTabs.BASE_CREATIVE_TAB);
         BnbBlocksBootstrap.register();
         BnbPaletteStoneTypes.register(REGISTRATE);
     }
