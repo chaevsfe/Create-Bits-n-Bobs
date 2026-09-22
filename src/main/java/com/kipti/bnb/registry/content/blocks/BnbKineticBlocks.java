@@ -101,7 +101,7 @@ public class BnbKineticBlocks {
             REGISTRATE.block("flywheel_bearing", FlywheelBearingBlock::new)
                     .transform(axeOrPickaxe())
                     .properties(p -> p.mapColor(MapColor.GOLD).noOcclusion())
-                    
+                    .onRegister(block -> BlockStressValues.setGeneratorSpeed(block, 16, true))
                     .tag(AllBlockTags.SAFE_NBT)
                     
                     .item()
