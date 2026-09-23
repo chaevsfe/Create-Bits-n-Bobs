@@ -425,7 +425,8 @@ public class CogwheelChainBehaviour extends SuperBlockEntityBehaviour implements
         if (this.controlledChain != null)
             this.controlledChain.transform(transform);
         if (this.controllerOffset != null) {
-            final Vec3i transformedOffset = transform.applyWithoutOffset(new BlockPos(this.controllerOffset));
+            final Vec3i transformedOffset = transform.applyWithoutOffset(new BlockPos(
+                    this.controllerOffset.getX(), this.controllerOffset.getY(), this.controllerOffset.getZ()));
             this.setController(transformedOffset);
         }
         this.updateControlledChain();
