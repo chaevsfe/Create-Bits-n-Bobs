@@ -1,6 +1,7 @@
 {
   "advancement.bits_n_bobs.dye_fluid_component": "Did you dye?",
   "advancement.bits_n_bobs.dye_fluid_component.desc": "Dye a fluid tank or pipe",
+  "bits_n_bobs.gui.headlamp.controlled_by_computer": "This headlamp is being controlled by a computer",
   "bits_n_bobs.ponder.chain_cog_changing_axis.header": "Changing axes on cogwheel chains",
   "bits_n_bobs.ponder.chain_cog_changing_axis.text_1": "Chains can change axis when connecting two large cogwheels",
   "bits_n_bobs.ponder.chain_cog_changing_axis.text_2": "They must share a common tangent that the chain can follow",
