@@ -21,6 +21,6 @@ public interface KineticBehaviourExtension {
     default List<BlockPos> addExtraPropagationLocations(final IRotate block,
                                                         final BlockState state,
                                                         final List<BlockPos> neighbours) {
-        return List.of();
+        return neighbours;
     }
 }
