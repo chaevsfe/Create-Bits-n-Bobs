@@ -54,7 +54,7 @@ public class DyeableBlockStateModel extends WrapperBlockStateModel {
     public void addPartsWithInfo(
             BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random, List<BlockStateModelPart> parts) {
         int from = parts.size();
-        super.addPartsWithInfo(level, pos, state, random, parts);
+        WrapperBlockStateModel.addPartsWithInfo(model, level, pos, state, random, parts);
 
         DyeColor color = style.colorAt(level, pos);
         if (color == null)
