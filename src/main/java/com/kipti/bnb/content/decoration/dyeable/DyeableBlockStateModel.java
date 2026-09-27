@@ -1,5 +1,6 @@
 package com.kipti.bnb.content.decoration.dyeable;
 
+import com.kipti.bnb.foundation.client.ModelParts;
 import com.kipti.bnb.foundation.client.QuadShifter;
 import com.zurrtum.create.client.catnip.render.SpriteShiftEntry;
 import com.zurrtum.create.client.infrastructure.model.WrapperBlockStateModel;
@@ -54,7 +55,7 @@ public class DyeableBlockStateModel extends WrapperBlockStateModel {
     public void addPartsWithInfo(
             BlockAndTintGetter level, BlockPos pos, BlockState state, RandomSource random, List<BlockStateModelPart> parts) {
         int from = parts.size();
-        super.addPartsWithInfo(level, pos, state, random, parts);
+        ModelParts.addWithInfo(model, level, pos, state, random, parts);
 
         DyeColor color = style.colorAt(level, pos);
         if (color == null)
