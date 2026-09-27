@@ -47,7 +47,7 @@ repositories {
     }
 }
 val struts = ":StrutYourStuff:${property("struts_version")}+fabric-mc${property("minecraft_version")}"
-val recipeViewer = ":CreateReiViewer:${property("createreiviewer_version")}+fabric-mc${property("minecraft_version")}"
+val recipeViewer = ":CreateReiViewer:${property("createreiviewer_version")}"
 
 dependencies {
     minecraft("com.mojang:minecraft:${property("minecraft_version")}")
