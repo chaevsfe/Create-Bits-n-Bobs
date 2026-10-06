@@ -6,6 +6,7 @@ import com.kipti.bnb.content.kinetics.cogwheel_chain.render.CogwheelChainRenderG
 import com.kipti.bnb.content.kinetics.cogwheel_chain.types.CogwheelChainType;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.Minecraft;
 import net.minecraft.util.Mth;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
@@ -406,12 +407,16 @@ public class CogwheelChainWholeShape extends CogwheelChainShape {
         final float g = ((color >> 8) & 0xFF) / 255f;
         final float b_ = ((color) & 0xFF) / 255f;
         final float alpha = ((color >> 24) & 0xFF) / 255f;
+        // RenderTypes.lines() uses POSITION_COLOR_NORMAL_LINE_WIDTH since 26.x; a missing width crashes the BufferBuilder
+        final float lineWidth = Minecraft.getInstance().getWindow().getAppropriateLineWidth();
         vb.addVertex(pose, (float) a.x, (float) a.y, (float) a.z)
                 .setColor(r, g, b_, alpha)
-                .setNormal(transform.copy(), nx, ny, nz);
+                .setNormal(transform.copy(), nx, ny, nz)
+                .setLineWidth(lineWidth);
         vb.addVertex(pose, (float) b.x, (float) b.y, (float) b.z)
                 .setColor(r, g, b_, alpha)
-                .setNormal(transform.copy(), nx, ny, nz);
+                .setNormal(transform.copy(), nx, ny, nz)
+                .setLineWidth(lineWidth);
     }
 
     private static class Frame {
