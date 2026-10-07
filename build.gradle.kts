@@ -197,7 +197,6 @@ val allowedResourcePrefixes = listOf(
     "assets/create/items/",
     "assets/create_connected/models/",
     "assets/create_hypertube/models/",
-    "assets/dndecor/models/",
 )
 
 afterEvaluate {
