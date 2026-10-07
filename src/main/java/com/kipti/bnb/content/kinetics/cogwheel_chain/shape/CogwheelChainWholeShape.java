@@ -407,7 +407,6 @@ public class CogwheelChainWholeShape extends CogwheelChainShape {
         final float g = ((color >> 8) & 0xFF) / 255f;
         final float b_ = ((color) & 0xFF) / 255f;
         final float alpha = ((color >> 24) & 0xFF) / 255f;
-        // RenderTypes.lines() uses POSITION_COLOR_NORMAL_LINE_WIDTH since 26.x; a missing width crashes the BufferBuilder
         final float lineWidth = Minecraft.getInstance().getWindow().getAppropriateLineWidth();
         vb.addVertex(pose, (float) a.x, (float) a.y, (float) a.z)
                 .setColor(r, g, b_, alpha)
