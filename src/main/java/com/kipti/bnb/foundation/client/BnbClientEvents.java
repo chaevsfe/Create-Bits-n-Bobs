@@ -28,8 +28,8 @@ import net.minecraft.world.level.Level;
  * {@code ClientTickEvent.Post} becomes {@code ClientTickEvents.END_CLIENT_TICK};
  * {@code InputEvent.InteractionKeyMappingTriggered} becomes {@code UseBlockCallback} plus
  * {@code UseItemCallback}, which between them cover a right click with and without a targeted block;
- * {@code RenderHighlightEvent.Block} and the chain's own selection outline both become one
- * {@code LevelRenderEvents.BEFORE_BLOCK_OUTLINE} listener.
+ * {@code RenderHighlightEvent.Block} becomes a {@code LevelRenderEvents.BEFORE_BLOCK_OUTLINE} listener and the
+ * chain's own selection outline a {@code LevelRenderEvents.COLLECT_SUBMITS} one.
  */
 @Environment(EnvType.CLIENT)
 public final class BnbClientEvents {
@@ -54,8 +54,9 @@ public final class BnbClientEvents {
         UseBlockCallback.EVENT.register((player, level, hand, hitResult) -> handleRightClick(player, level, hand));
         UseItemCallback.EVENT.register(BnbClientEvents::handleRightClick);
 
+        LevelRenderEvents.COLLECT_SUBMITS.register(CogwheelChainInteractionHandler::renderSelection);
         LevelRenderEvents.BEFORE_BLOCK_OUTLINE.register(
-                (context, outlineState) -> CogwheelChainInteractionHandler.beforeBlockOutline(context));
+                (context, outlineState) -> CogwheelChainInteractionHandler.beforeBlockOutline());
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             CogwheelChainPlacementInteraction.clearPlacingChain();
