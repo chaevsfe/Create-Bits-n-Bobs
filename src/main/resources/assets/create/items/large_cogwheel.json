@@ -1,0 +1,6 @@
+{
+  "model": {
+    "type": "create:model/normal",
+    "model": "bits_n_bobs:block/material_cogwheel/large_cogwheel"
+  }
+}
