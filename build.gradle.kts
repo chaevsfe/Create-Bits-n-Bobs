@@ -196,7 +196,8 @@ val allowedResourcePrefixes = listOf(
     "data/minecraft/tags/",
     "data/railways/tags/",
     "assets/create/blockstates/",
-    "assets/create/items/",
+    "resourcepacks/cogwheel_items/pack.mcmeta",
+    "resourcepacks/cogwheel_items/assets/create/items/",
     "assets/create_connected/models/",
     "assets/create_hypertube/models/",
 )
