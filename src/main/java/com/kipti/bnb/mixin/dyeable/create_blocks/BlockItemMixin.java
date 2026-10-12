@@ -3,6 +3,8 @@ package com.kipti.bnb.mixin.dyeable.create_blocks;
 import com.kipti.bnb.content.decoration.dyeable.BaseDyeableBehaviour;
 import com.kipti.bnb.content.decoration.dyeable.DyeableBlockItemHelper;
 import com.kipti.bnb.content.decoration.dyeable.DyeableCreateBlockItems;
+import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.zurrtum.create.foundation.blockEntity.behaviour.BehaviourType;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionResult;
@@ -22,31 +24,23 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(BlockItem.class)
 public abstract class BlockItemMixin {
 
-    @Inject(method = "place", at = @At("HEAD"))
-    private void bits_n_bobs$savePendingDyeColor(final BlockPlaceContext context,
-                                                 final CallbackInfoReturnable<InteractionResult> cir) {
+    @WrapMethod(method = "place")
+    private InteractionResult bits_n_bobs$placeWithPendingDyeColor(final BlockPlaceContext context,
+                                                                  final Operation<InteractionResult> original) {
         final BehaviourType<? extends BaseDyeableBehaviour> type =
                 DyeableCreateBlockItems.behaviourFor(((BlockItem) (Object) this).getBlock());
-        if (type == null)
-            return;
-        final DyeColor dye = DyeableBlockItemHelper.getOffhandDyeColor(context);
-        if (dye != null)
-            DyeableBlockItemHelper.savePendingPlacementColor(context, context.getClickedPos(), dye);
-    }
-
-    @Inject(method = "place", at = @At("RETURN"))
-    private void bits_n_bobs$applyDyeAfterPlacement(final BlockPlaceContext context,
-                                                    final CallbackInfoReturnable<InteractionResult> cir) {
-        final BehaviourType<? extends BaseDyeableBehaviour> type =
-                DyeableCreateBlockItems.behaviourFor(((BlockItem) (Object) this).getBlock());
-        if (type == null)
-            return;
-        final DyeColor dye = DyeableBlockItemHelper.getOffhandDyeColor(context);
+        final DyeColor dye = type == null ? null : DyeableBlockItemHelper.getOffhandDyeColor(context);
         if (dye == null)
-            return;
-        if (cir.getReturnValue().consumesAction())
-            DyeableBlockItemHelper.applyColorClientOnly(context.getLevel(), context.getClickedPos(), type, dye);
-        DyeableBlockItemHelper.consumePendingPlacementColor(context.getLevel(), context.getClickedPos());
+            return original.call(context);
+        DyeableBlockItemHelper.savePendingPlacementColor(context, context.getClickedPos(), dye);
+        try {
+            final InteractionResult result = original.call(context);
+            if (result.consumesAction())
+                DyeableBlockItemHelper.applyColorClientOnly(context.getLevel(), context.getClickedPos(), type, dye);
+            return result;
+        } finally {
+            DyeableBlockItemHelper.consumePendingPlacementColor(context.getLevel(), context.getClickedPos());
+        }
     }
 
     @Inject(method = "updateCustomBlockEntityTag(Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/level/Level;Lnet/minecraft/world/entity/player/Player;Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/level/block/state/BlockState;)Z", at = @At("RETURN"))
