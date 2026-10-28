@@ -21,7 +21,10 @@ import com.kipti.bnb.registry.content.blocks.BnbTrinketBlocks;
 import com.kipti.bnb.registry.content.blocks.deco.BnbDecorativeBlocks;
 import com.kipti.bnb.registry.content.blocks.encased.BnbEncasedBlockLists;
 import com.kipti.bnb.registry.content.blocks.encased.BnbExtraEncasedBlocks;
+import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedCogVisual;
 import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedFlangedCogRenderer;
+import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedLargeCogRenderer;
+import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedSmallCogRenderer;
 import com.kipti.bnb.content.kinetics.encased_blocks.cogwheel.BnbEncasedFlangedCogVisual;
 import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelRenderer;
 import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelVisual;
@@ -29,9 +32,6 @@ import com.kipti.bnb.foundation.client.GenericKineticVisuals;
 import com.zurrtum.create.client.content.kinetics.base.KineticBlockEntityRenderer;
 import com.zurrtum.create.client.content.kinetics.base.ShaftRenderer;
 import com.zurrtum.create.client.content.kinetics.base.SingleAxisRotatingVisual;
-import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedCogVisual;
-import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedLargeCogRenderer;
-import com.zurrtum.create.client.content.kinetics.simpleRelays.encased.EncasedSmallCogRenderer;
 import com.zurrtum.create.AllBlocks;
 import com.zurrtum.create.content.kinetics.base.KineticBlockEntity;
 import com.zurrtum.create.content.kinetics.simpleRelays.SimpleKineticBlockEntity;
@@ -100,22 +100,22 @@ public class BnbBlockEntities {
 
     public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_COGWHEEL = REGISTRATE
             .blockEntity("encased_cogwheel", SimpleKineticBlockEntity::new)
-            .visual(() -> EncasedCogVisual::small, false)
+            .visual(() -> BnbEncasedCogVisual::small, false)
             .validBlocks(
                     BnbExtraEncasedBlocks.INDUSTRIAL_IRON_ENCASED_COGWHEEL,
                     BnbExtraEncasedBlocks.WEATHERED_IRON_ENCASED_COGWHEEL
             )
-            .renderer(() -> EncasedSmallCogRenderer::new)
+            .renderer(() -> BnbEncasedSmallCogRenderer::new)
             .register();
 
     public static final BlockEntityEntry<SimpleKineticBlockEntity> ENCASED_LARGE_COGWHEEL = REGISTRATE
             .blockEntity("encased_large_cogwheel", SimpleKineticBlockEntity::new)
-            .visual(() -> EncasedCogVisual::large, false)
+            .visual(() -> BnbEncasedCogVisual::large, false)
             .validBlocks(
                     BnbExtraEncasedBlocks.INDUSTRIAL_IRON_ENCASED_LARGE_COGWHEEL,
                     BnbExtraEncasedBlocks.WEATHERED_IRON_ENCASED_LARGE_COGWHEEL
             )
-            .renderer(() -> EncasedLargeCogRenderer::new)
+            .renderer(() -> BnbEncasedLargeCogRenderer::new)
             .register();
 
     public static final BlockEntityEntry<GenericNixieDisplayBlockEntity> GENERIC_NIXIE_DISPLAY = REGISTRATE.blockEntity(
