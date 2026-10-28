@@ -1,11 +1,12 @@
 {
   "parent": "block/block",
   "textures": {
+    "1": "#opening",
     "particle": "#casing"
   },
   "elements": [
     {
-      "name": "wall_north",
+      "name": "Bottom",
       "from": [
         0,
         0,
@@ -24,8 +25,16 @@
             16,
             16
           ],
-          "texture": "#casing",
-          "cullface": "north"
+          "texture": "#casing"
+        },
+        "east": {
+          "uv": [
+            14,
+            0,
+            16,
+            16
+          ],
+          "texture": "#casing"
         },
         "south": {
           "uv": [
@@ -36,16 +45,6 @@
           ],
           "texture": "#casing"
         },
-        "east": {
-          "uv": [
-            14,
-            0,
-            16,
-            16
-          ],
-          "texture": "#casing",
-          "cullface": "east"
-        },
         "west": {
           "uv": [
             0,
@@ -53,18 +52,17 @@
             2,
             16
           ],
-          "texture": "#casing",
-          "cullface": "west"
+          "texture": "#casing"
         },
         "up": {
           "uv": [
             0,
-            0,
+            14,
             16,
-            2
+            16
           ],
-          "texture": "#casing",
-          "cullface": "up"
+          "rotation": 180,
+          "texture": "#casing"
         },
         "down": {
           "uv": [
@@ -73,13 +71,46 @@
             16,
             16
           ],
-          "texture": "#casing",
-          "cullface": "down"
+          "texture": "#casing"
         }
       }
     },
     {
-      "name": "wall_south",
+      "name": "Core",
+      "from": [
+        1,
+        0.95,
+        2
+      ],
+      "to": [
+        15,
+        15.05,
+        14
+      ],
+      "faces": {
+        "up": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "rotation": 180,
+          "texture": "#1"
+        },
+        "down": {
+          "uv": [
+            1,
+            2,
+            15,
+            14
+          ],
+          "texture": "#1"
+        }
+      }
+    },
+    {
+      "name": "Top",
       "from": [
         0,
         0,
@@ -100,16 +131,6 @@
           ],
           "texture": "#casing"
         },
-        "south": {
-          "uv": [
-            0,
-            0,
-            16,
-            16
-          ],
-          "texture": "#casing",
-          "cullface": "south"
-        },
         "east": {
           "uv": [
             0,
@@ -117,8 +138,16 @@
             2,
             16
           ],
-          "texture": "#casing",
-          "cullface": "east"
+          "texture": "#casing"
+        },
+        "south": {
+          "uv": [
+            0,
+            0,
+            16,
+            16
+          ],
+          "texture": "#casing"
         },
         "west": {
           "uv": [
@@ -127,18 +156,17 @@
             16,
             16
           ],
-          "texture": "#casing",
-          "cullface": "west"
+          "texture": "#casing"
         },
         "up": {
           "uv": [
             0,
-            14,
+            0,
             16,
-            16
+            2
           ],
-          "texture": "#casing",
-          "cullface": "up"
+          "rotation": 180,
+          "texture": "#casing"
         },
         "down": {
           "uv": [
@@ -147,13 +175,12 @@
             16,
             2
           ],
-          "texture": "#casing",
-          "cullface": "down"
+          "texture": "#casing"
         }
       }
     },
     {
-      "name": "wall_west",
+      "name": "SideWest",
       "from": [
         0,
         0,
@@ -181,18 +208,17 @@
             14,
             16
           ],
-          "texture": "#casing",
-          "cullface": "west"
+          "texture": "#casing"
         },
         "up": {
           "uv": [
-            0,
+            14,
             2,
-            2,
+            16,
             14
           ],
-          "texture": "#casing",
-          "cullface": "up"
+          "rotation": 180,
+          "texture": "#casing"
         },
         "down": {
           "uv": [
@@ -201,13 +227,12 @@
             2,
             14
           ],
-          "texture": "#casing",
-          "cullface": "down"
+          "texture": "#casing"
         }
       }
     },
     {
-      "name": "wall_east",
+      "name": "SideEast",
       "from": [
         14,
         0,
@@ -226,8 +251,7 @@
             14,
             16
           ],
-          "texture": "#casing",
-          "cullface": "east"
+          "texture": "#casing"
         },
         "west": {
           "uv": [
@@ -240,13 +264,13 @@
         },
         "up": {
           "uv": [
-            14,
+            0,
             2,
-            16,
+            2,
             14
           ],
-          "texture": "#casing",
-          "cullface": "up"
+          "rotation": 180,
+          "texture": "#casing"
         },
         "down": {
           "uv": [
@@ -255,41 +279,7 @@
             16,
             14
           ],
-          "texture": "#casing",
-          "cullface": "down"
-        }
-      }
-    },
-    {
-      "name": "cap",
-      "from": [
-        2,
-        1,
-        2
-      ],
-      "to": [
-        14,
-        15,
-        14
-      ],
-      "faces": {
-        "up": {
-          "uv": [
-            2,
-            2,
-            14,
-            14
-          ],
-          "texture": "#opening"
-        },
-        "down": {
-          "uv": [
-            2,
-            2,
-            14,
-            14
-          ],
-          "texture": "#opening"
+          "texture": "#casing"
         }
       }
     }
