@@ -1,6 +1,7 @@
 package com.kipti.bnb.content.decoration.cogwheel_material;
 
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.zurrtum.create.client.AllPartialModels;
 import com.zurrtum.create.client.flywheel.lib.model.baked.PartialModel;
 import com.zurrtum.create.client.catnip.render.CachedBuffers;
 import com.zurrtum.create.client.catnip.render.SuperBufferFactory;
@@ -13,6 +14,8 @@ import net.minecraft.client.renderer.block.dispatch.BlockStateModel;
 import net.minecraft.core.Direction;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.function.Supplier;
 
@@ -31,6 +34,10 @@ public class CogwheelMaterialContext {
 
     public static final ThreadLocal<BlockState> CURRENT_RENDER_MATERIAL = new ThreadLocal<>();
 
+    @Nullable
+    private static volatile PartialModel culledShaftless;
+    private static volatile boolean culledShaftlessResolved;
+
     /**
      * Substitutes a partial-model buffer with a material-keyed buffer if the requested partial is a cogwheel variant's
      * own model. The partial-identity guard keeps metal parts ({@code SHAFT_HALF}, {@code COGWHEEL_SHAFT}, mixer
@@ -48,10 +55,32 @@ public class CogwheelMaterialContext {
             return fallback.get();
 
         final CogwheelMaterialRenderer.Variant variant = CogwheelMaterialRenderer.getVariant(state);
-        if (variant == null || variant.partialModel() != partial)
+        if (variant == null || (variant.partialModel() != partial && !isCulledShaftless(variant, partial)))
             return fallback.get();
 
         return buffer(variant, material, facing, transform);
+    }
+
+    private static boolean isCulledShaftless(final CogwheelMaterialRenderer.Variant variant, final PartialModel partial) {
+        return variant == CogwheelMaterialRenderer.Variant.SHAFTLESS_COGWHEEL && partial != null && partial == culledShaftlessCogwheel();
+    }
+
+    @Nullable
+    private static PartialModel culledShaftlessCogwheel() {
+        if (!culledShaftlessResolved) {
+            culledShaftless = resolveCulledShaftless();
+            culledShaftlessResolved = true;
+        }
+        return culledShaftless;
+    }
+
+    @Nullable
+    private static PartialModel resolveCulledShaftless() {
+        try {
+            return AllPartialModels.class.getField("SHAFTLESS_COGWHEEL_CULL").get(null) instanceof final PartialModel model ? model : null;
+        } catch (final ReflectiveOperationException e) {
+            return null;
+        }
     }
 
     public static SuperByteBuffer block(final BlockState state, final Supplier<SuperByteBuffer> fallback) {
