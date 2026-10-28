@@ -1,5 +1,5 @@
 {
-	"parent": "create:block/encased_shaft/block",
+	"parent": "bits_n_bobs:block/encased_shaft/block",
 	"textures": {
 		"casing": "create:block/industrial_iron_block",
 		"opening": "bits_n_bobs:block/industrial_iron_gearbox"
