@@ -35,3 +35,12 @@ under `com.kipti.bnb.foundation.behaviour`, the Sable Companion stand-ins under
 `com.kipti.bnb.compat.sable` and the networking layer under
 `com.kipti.bnb.network` were written for this port and are released under the
 same MIT terms.
+
+The encased cogwheel visual and renderers under
+`com.kipti.bnb.content.kinetics.encased_blocks.cogwheel` (`BnbEncasedCogVisual`,
+`BnbEncasedSmallCogRenderer`, `BnbEncasedLargeCogRenderer`) are adapted from
+Create Fly 6.0.9-1 (`EncasedCogVisual`, `EncasedSmallCogRenderer`,
+`EncasedLargeCogRenderer`; Create Fly is CC0-1.0, built on Create's MIT code).
+The encased shaft models `models/block/encased_shaft/block.json` and
+`item.json` were authored for this port and are released under the same MIT
+terms.
