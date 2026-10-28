@@ -1,5 +1,6 @@
 package com.kipti.bnb.foundation.client;
 
+import com.kipti.bnb.CreateBitsnBobs;
 import com.kipti.bnb.content.decoration.dyeable.BnbDyeableModels;
 import com.kipti.bnb.content.decoration.grating.GratingPanelCTBehaviour;
 import com.kipti.bnb.content.decoration.truss.TrussBlockModel;
@@ -98,10 +99,19 @@ public final class BnbModels {
 
     private static ConnectedTextureBehaviour largeCogCasingBehaviour(EncasedBlockList.CasingMaterial casing) {
         return switch (casing) {
-            case ANDESITE -> AllCTBehaviours.COG_ANDESITE_CASING;
-            case BRASS -> AllCTBehaviours.COG_BRASS_CASING;
+            case ANDESITE -> createBehaviour("COG_ANDESITE_CASING");
+            case BRASS -> createBehaviour("COG_BRASS_CASING");
             default -> null;
         };
+    }
+
+    private static ConnectedTextureBehaviour createBehaviour(final String field) {
+        try {
+            return (ConnectedTextureBehaviour) AllCTBehaviours.class.getField(field).get(null);
+        } catch (final ReflectiveOperationException | ClassCastException e) {
+            CreateBitsnBobs.LOGGER.warn("Create Fly has no connected texture behaviour {}", field, e);
+            return null;
+        }
     }
 
     private static CTSpriteShiftEntry casingShift(EncasedBlockList.CasingMaterial casing) {
