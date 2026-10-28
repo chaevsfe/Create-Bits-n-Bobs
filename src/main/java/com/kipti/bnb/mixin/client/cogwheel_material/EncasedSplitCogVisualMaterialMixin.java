@@ -42,12 +42,12 @@ public abstract class EncasedSplitCogVisualMaterialMixin extends AbstractBlockEn
     public Instancer<RotatingInstance> bnb$materialCog(final InstancerProvider provider, final InstanceType<RotatingInstance> type, final Model model, final Operation<Instancer<RotatingInstance>> original) {
         if (this.bnb$materialState == null)
             this.bnb$materialState = new State();
-        return this.bnb$materialInstancer(provider, type, model, null, null, this.bnb$materialState, this.blockEntity, this.blockState);
+        return this.bnb$defaultKeepingInstancer(provider, type, model, this.bnb$materialState, this.blockEntity, this.blockState);
     }
 
     @Inject(method = "update", at = @At("HEAD"))
     public void bnb$update(final float pt, final CallbackInfo ci) {
-        final RotatingInstance updated = this.bnb$updateCog(this.bnb$materialState, this.blockEntity, this.blockState, this.instancerProvider(), this.getVisualPosition(), this.rotatingModel);
+        final RotatingInstance updated = this.bnb$defaultKeepingUpdateCog(this.bnb$materialState, this.blockEntity, this.blockState, this.instancerProvider(), this.getVisualPosition(), this.rotatingModel);
         if (updated != null) {
             this.rotatingModel = updated;
             this.relight(this.rotatingModel);

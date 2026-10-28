@@ -13,6 +13,7 @@ import com.zurrtum.create.client.flywheel.api.instance.InstancerProvider;
 import com.zurrtum.create.client.flywheel.api.model.Model;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import org.jetbrains.annotations.Nullable;
 
@@ -38,6 +39,8 @@ public interface CogwheelMaterialVisualSupport {
         public Direction face;
         @Nullable
         public Direction orientation;
+        @Nullable
+        public Model defaultModel;
     }
 
     /**
@@ -121,6 +124,79 @@ public interface CogwheelMaterialVisualSupport {
                 )
                 .createInstance()
                 .rotateToFace(state.face != null ? state.face : Direction.UP, orientation)
+                .setup(blockEntity)
+                .setPosition(position);
+
+        updated.setChanged();
+        return updated;
+    }
+
+    default Instancer<RotatingInstance> bnb$defaultKeepingInstancer(
+            final InstancerProvider provider,
+            final InstanceType<RotatingInstance> type,
+            final Model model,
+            final State state,
+            final KineticBlockEntity blockEntity,
+            final BlockState blockState
+    ) {
+        state.face = null;
+        state.orientation = null;
+        state.defaultModel = model;
+
+        final CogwheelMaterialBehaviour behaviour = BlockEntityBehaviour.get(blockEntity, CogwheelMaterialBehaviour.TYPE);
+        final BlockState material = behaviour == null ? null : behaviour.material;
+        state.lastMaterial = material;
+        if (material == null || material.is(Blocks.SPRUCE_PLANKS))
+            return provider.instancer(type, model);
+
+        final CogwheelMaterialRenderer.Variant variant = CogwheelMaterialRenderer.getVariant(blockState);
+        if (variant == null)
+            return provider.instancer(type, model);
+
+        return provider.instancer(type, CogwheelMaterialVisual.MODEL_CACHE.get(
+                new CogwheelMaterialVisual.ModelKey(variant, material)
+        ));
+    }
+
+    @Nullable
+    default RotatingInstance bnb$defaultKeepingUpdateCog(
+            final State state,
+            final KineticBlockEntity blockEntity,
+            final BlockState blockState,
+            final InstancerProvider provider,
+            final BlockPos position,
+            final RotatingInstance current
+    ) {
+        if (state == null || state.defaultModel == null)
+            return null;
+
+        final CogwheelMaterialBehaviour behaviour = BlockEntityBehaviour.get(blockEntity, CogwheelMaterialBehaviour.TYPE);
+        if (behaviour == null || behaviour.material == null)
+            return null;
+
+        final BlockState material = behaviour.material;
+        if (state.lastMaterial == material)
+            return null;
+
+        final CogwheelMaterialRenderer.Variant variant = CogwheelMaterialRenderer.getVariant(blockState);
+        if (variant == null)
+            return null;
+
+        final boolean wasDefault = state.lastMaterial == null || state.lastMaterial.is(Blocks.SPRUCE_PLANKS);
+        final boolean isDefault = material.is(Blocks.SPRUCE_PLANKS);
+        state.lastMaterial = material;
+        if (wasDefault && isDefault)
+            return null;
+
+        current.delete();
+
+        final Model model = isDefault
+                ? state.defaultModel
+                : CogwheelMaterialVisual.MODEL_CACHE.get(new CogwheelMaterialVisual.ModelKey(variant, material));
+
+        final RotatingInstance updated = provider.instancer(AllInstanceTypes.ROTATING, model)
+                .createInstance()
+                .rotateToFace(Direction.UP, Direction.get(Direction.AxisDirection.POSITIVE, KineticBlockEntityVisual.rotationAxis(blockState)))
                 .setup(blockEntity)
                 .setPosition(position);
 
