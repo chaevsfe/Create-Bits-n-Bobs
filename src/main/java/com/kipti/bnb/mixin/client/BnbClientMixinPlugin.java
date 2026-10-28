@@ -11,6 +11,7 @@ import java.util.Set;
 public class BnbClientMixinPlugin implements IMixinConfigPlugin {
 
     private static final String ENCASED_PACKAGE = "com/zurrtum/create/client/content/kinetics/simpleRelays/encased/";
+    private static final String CHAIN_COGWHEEL_VISUAL = "com/hlysine/create_connected/content/chaincogwheel/ChainCogwheelVisual.class";
 
     @Override
     public void onLoad(final String mixinPackage) {
@@ -37,11 +38,17 @@ public class BnbClientMixinPlugin implements IMixinConfigPlugin {
             mixins.add("cogwheel_material.EncasedSplitCogVisualMaterialMixin");
         else if (classExists("EncasedCogVisual"))
             mixins.add("cogwheel_material.EncasedCogVisualMaterialMixin");
+        if (resourceExists(CHAIN_COGWHEEL_VISUAL))
+            mixins.add("cogwheel_material.ChainCogwheelVisualMaterialMixin");
         return mixins;
     }
 
     private static boolean classExists(final String simpleName) {
-        return BnbClientMixinPlugin.class.getClassLoader().getResource(ENCASED_PACKAGE + simpleName + ".class") != null;
+        return resourceExists(ENCASED_PACKAGE + simpleName + ".class");
+    }
+
+    private static boolean resourceExists(final String path) {
+        return BnbClientMixinPlugin.class.getClassLoader().getResource(path) != null;
     }
 
     @Override
