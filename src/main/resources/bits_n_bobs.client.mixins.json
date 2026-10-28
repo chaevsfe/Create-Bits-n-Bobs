@@ -2,6 +2,7 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.kipti.bnb.mixin.client",
+  "plugin": "com.kipti.bnb.mixin.client.BnbClientMixinPlugin",
   "compatibilityLevel": "JAVA_25",
   "client": [
     "chain.ChainConveyorRidingHandlerAccessor",
