@@ -27,7 +27,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 public abstract class EncasedSplitCogVisualMaterialMixin extends AbstractBlockEntityVisual<KineticBlockEntity> implements CogwheelMaterialVisualSupport {
 
     @Mutable
-    @Shadow
+    @Shadow(remap = false)
     @Final
     protected RotatingInstance rotatingModel;
 
