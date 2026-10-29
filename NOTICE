@@ -41,5 +41,3 @@ The encased cogwheel visual and renderers under
 `BnbEncasedSmallCogRenderer`, `BnbEncasedLargeCogRenderer`) are adapted from
 Create Fly 6.0.9-1 (`EncasedCogVisual`, `EncasedSmallCogRenderer`,
 `EncasedLargeCogRenderer`; Create Fly is CC0-1.0, built on Create's MIT code).
-The encased shaft models `models/block/encased_shaft/block.json` and
-`item.json` are copied from the Create Fly 6.0.9-1 models of the same name.
