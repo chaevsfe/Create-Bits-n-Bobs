@@ -28,6 +28,11 @@ All textures, models, sounds and datapack files are upstream's, redistributed
 under the same declared MIT grant. Upstream's `vault/` directory of loose source
 art is not part of this port.
 
+The iron encased shaft templates `models/block/encased_shaft/block.json` and
+`item.json` in the built-in `fly_6092_encased_shaft` resource pack, enabled
+only with Create Fly 6.0.9-2 or newer, were authored for this port and are
+released under the same MIT terms.
+
 Port-specific code
 ------------------
 The registration layer under `com.kipti.bnb.registrate`, the behaviour layer
