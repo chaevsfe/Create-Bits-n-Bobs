@@ -196,6 +196,8 @@ val allowedResourcePrefixes = listOf(
     "assets/create/blockstates/",
     "resourcepacks/cogwheel_items/pack.mcmeta",
     "resourcepacks/cogwheel_items/assets/create/items/",
+    "resourcepacks/fly_6092_encased_shaft/pack.mcmeta",
+    "resourcepacks/fly_6092_encased_shaft/assets/bits_n_bobs/models/block/encased_shaft/",
     "assets/create_connected/models/",
     "assets/create_hypertube/models/",
 )
