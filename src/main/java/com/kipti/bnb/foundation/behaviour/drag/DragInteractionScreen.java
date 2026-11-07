@@ -2,7 +2,6 @@ package com.kipti.bnb.foundation.behaviour.drag;
 
 import com.kipti.bnb.foundation.client.BnbClientHooks;
 import com.kipti.bnb.network.packets.from_client.DragInteractionUpdatePacket;
-import com.mojang.blaze3d.platform.InputConstants;
 import com.mojang.blaze3d.platform.Window;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -12,7 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import org.lwjgl.glfw.GLFW;
+import org.lwjgl.sdl.SDLMouse;
 
 import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
 
@@ -74,10 +73,14 @@ public class DragInteractionScreen extends Screen {
 
         final Window window = this.minecraft.getWindow();
         this.lastMouseY = window.getGuiScaledHeight() / 2.0;
-        InputConstants.grabOrReleaseMouse(
-                window, GLFW.GLFW_CURSOR_HIDDEN,
-                window.getScreenWidth() / 2.0, window.getScreenHeight() / 2.0
-        );
+        SDLMouse.SDL_HideCursor();
+        SDLMouse.SDL_WarpMouseInWindow(window.handle(), window.getScreenWidth() / 2f, window.getScreenHeight() / 2f);
+    }
+
+    @Override
+    public void removed() {
+        SDLMouse.SDL_ShowCursor();
+        super.removed();
     }
 
     @Override
