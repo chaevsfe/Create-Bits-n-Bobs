@@ -9,6 +9,8 @@ import com.zurrtum.create.content.contraptions.AssemblyException;
 import com.zurrtum.create.client.content.contraptions.IDisplayAssemblyExceptions;
 import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
 import com.zurrtum.create.api.behaviour.BlockEntityBehaviour;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -23,6 +25,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
+@EnvironmentInterface(value = EnvType.CLIENT, itf = IDisplayAssemblyExceptions.class)
 public class CogwheelChainCarriageBlockEntity extends SmartBlockEntity implements IDisplayAssemblyExceptions {
 
     public static final String ASSEMBLY_EXCEPTION_FORMAT = "create.gui.assembly.exception.%s";
