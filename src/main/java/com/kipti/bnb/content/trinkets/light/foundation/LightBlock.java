@@ -1,7 +1,6 @@
 package com.kipti.bnb.content.trinkets.light.foundation;
 
 import net.minecraft.world.level.redstone.Orientation;
-import com.mojang.serialization.MapCodec;
 import com.zurrtum.create.content.equipment.wrench.IWrenchable;
 import com.zurrtum.create.catnip.math.VoxelShaper;
 import net.minecraft.core.BlockPos;
@@ -33,7 +32,6 @@ public class LightBlock extends DirectionalBlock implements IWrenchable {
 
     public static final IntegerProperty POWER = BlockStateProperties.POWER;
     public static final BooleanProperty FORCED_ON = BooleanProperty.create("forced_on");
-    public final MapCodec<LightBlock> CODEC;
     private final VoxelShaper shaper;
 
     private final boolean forcePlaceUpwards;
@@ -46,7 +44,6 @@ public class LightBlock extends DirectionalBlock implements IWrenchable {
         super(p_52591_);
         this.shaper = shaper;
         registerDefaultState(defaultBlockState().setValue(POWER, 0).setValue(FORCED_ON, false).setValue(FACING, Direction.UP));
-        CODEC = simpleCodec((p) -> new LightBlock(p, shaper, forcePlaceUpwards));
         this.forcePlaceUpwards = forcePlaceUpwards;
     }
 
@@ -118,11 +115,6 @@ public class LightBlock extends DirectionalBlock implements IWrenchable {
         if (state.getValue(POWER) != signal) {
             level.setBlock(pos, state.setValue(POWER, signal), 2);
         }
-    }
-
-    @Override
-    protected @NotNull MapCodec<? extends DirectionalBlock> codec() {
-        return CODEC;
     }
 
 }

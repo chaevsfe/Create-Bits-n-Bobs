@@ -4,7 +4,6 @@ import net.minecraft.world.level.ScheduledTickAccess;
 import net.minecraft.util.RandomSource;
 import com.kipti.bnb.registry.content.BnbShapes;
 import com.kipti.bnb.registry.content.BnbBlockEntities;
-import com.mojang.serialization.MapCodec;
 import com.zurrtum.create.foundation.block.IBE;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -32,8 +31,6 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 
 public class ThrottleLeverBlock extends Block implements IBE<ThrottleLeverBlockEntity> {
 
-    public static final MapCodec<ThrottleLeverBlock> CODEC = simpleCodec(ThrottleLeverBlock::new);
-
     public static final EnumProperty<AttachFace> FACE = BlockStateProperties.ATTACH_FACE;
     public static final EnumProperty<Direction> FACING = BlockStateProperties.HORIZONTAL_FACING;
 
@@ -43,11 +40,6 @@ public class ThrottleLeverBlock extends Block implements IBE<ThrottleLeverBlockE
                                           .setValue(FACE, AttachFace.WALL)
                                           .setValue(FACING, Direction.NORTH)
                                           .setValue(BlockStateProperties.POWER, 0));
-    }
-
-    @Override
-    protected MapCodec<? extends ThrottleLeverBlock> codec() {
-        return CODEC;
     }
 
     @Override
