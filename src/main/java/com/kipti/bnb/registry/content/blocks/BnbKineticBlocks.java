@@ -115,7 +115,7 @@ public class BnbKineticBlocks {
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p
                             .noOcclusion()
-                            .isViewBlocking((state, level, pos) -> false))
+                            .isViewBlocking((state, level, pos, box) -> false))
                     .transform(axeOrPickaxe())
                     
                     .item()
@@ -129,8 +129,8 @@ public class BnbKineticBlocks {
                     .initialProperties(SharedProperties::stone)
                     .properties(p -> p
                             .noOcclusion()
-                            .pushReaction(PushReaction.BLOCK)
-                            .isViewBlocking((state, level, pos) -> false))
+                            .pushReaction(PushReaction.IMMOVEABLE)
+                            .isViewBlocking((state, level, pos, box) -> false))
                     .transform(axeOrPickaxe())
                     
                     

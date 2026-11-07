@@ -129,7 +129,7 @@ public class BnbDecorativeBlocks {
                     .sound(SoundType.METAL)
                     .noOcclusion()
                     .isSuffocating((state, level, pos) -> false)
-                    .isViewBlocking((state, level, pos) -> false))
+                    .isViewBlocking((state, level, pos, box) -> false))
             .transform(TagGen.pickaxeOnly())
             
             
@@ -147,7 +147,7 @@ public class BnbDecorativeBlocks {
                     .strength(0.6f, 6.0f)
                     .sound(SoundType.METAL)
                     .isSuffocating((state, level, pos) -> false)
-                    .isViewBlocking((state, level, pos) -> false))
+                    .isViewBlocking((state, level, pos, box) -> false))
             .transform(TagGen.pickaxeOnly())
             
             
@@ -169,7 +169,7 @@ public class BnbDecorativeBlocks {
             .properties(p -> p.mapColor(MapColor.METAL)
                     .sound(SoundType.METAL)
                     .isSuffocating((state, level, pos) -> false)
-                    .isViewBlocking((state, level, pos) -> false)
+                    .isViewBlocking((state, level, pos, box) -> false)
                     .noOcclusion())
             
             
