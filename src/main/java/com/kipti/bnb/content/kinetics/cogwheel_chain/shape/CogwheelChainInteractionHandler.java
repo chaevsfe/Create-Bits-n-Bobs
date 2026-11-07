@@ -149,16 +149,25 @@ public final class CogwheelChainInteractionHandler {
         return true;
     }
 
-    public static boolean beforeBlockOutline(final LevelRenderContext context) {
+    public static boolean beforeBlockOutline() {
         final Minecraft mc = Minecraft.getInstance();
         if (mc.level == null || invalidSelection(mc.level)) {
             clearSelection();
             return true;
         }
+        return false;
+    }
+
+    public static void renderSelection(final LevelRenderContext context) {
+        final Minecraft mc = Minecraft.getInstance();
+        if (mc.level == null || invalidSelection(mc.level)) {
+            clearSelection();
+            return;
+        }
 
         final Vec3 camera = context.levelState().cameraRenderState.pos;
         if (camera == null) {
-            return true;
+            return;
         }
 
         final BlockPos controllerPos = selectedController;
@@ -174,6 +183,5 @@ public final class CogwheelChainInteractionHandler {
                 (pose, consumer) -> shape.drawOutline(pose, consumer, coordinateSpace::toWorld)
         );
         ms.popPose();
-        return false;
     }
 }
