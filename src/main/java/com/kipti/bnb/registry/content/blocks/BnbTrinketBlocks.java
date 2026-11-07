@@ -18,11 +18,9 @@ import com.zurrtum.create.content.contraptions.actors.seat.SeatInteractionBehavi
 import com.zurrtum.create.content.contraptions.actors.seat.SeatMovementBehaviour;
 import com.kipti.bnb.foundation.data.DyedBlockList;
 import com.kipti.bnb.foundation.data.SharedProperties;
-import com.zurrtum.create.client.foundation.item.ItemDescription;
 import com.kipti.bnb.registrate.builders.BlockBuilder;
 import com.kipti.bnb.registrate.entry.BlockEntry;
 import com.kipti.bnb.registrate.fn.NonNullFunction;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -167,7 +165,6 @@ public class BnbTrinketBlocks {
                 
                 
                 
-                .onRegisterAfter(Registries.ITEM, v -> ItemDescription.useKey(v, "block.bits_n_bobs.chair"))
                 .tag(BnbTags.BnbBlockTags.CHAIRS.tag)
                 .item()
                 

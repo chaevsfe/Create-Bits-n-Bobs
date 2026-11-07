@@ -17,6 +17,9 @@ import com.zurrtum.create.compat.Mods;
 import com.zurrtum.create.content.schematics.requirement.ItemRequirement;
 import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
 import com.zurrtum.create.api.behaviour.BlockEntityBehaviour;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvironmentInterface;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -43,6 +46,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@EnvironmentInterface(value = EnvType.CLIENT, itf = IHaveGoggleInformation.class)
 public class HeadlampBlockEntity extends SmartBlockEntity implements SpecialBlockEntityItemRequirement, IHaveGoggleInformation {
 
     /**
@@ -66,6 +70,7 @@ public class HeadlampBlockEntity extends SmartBlockEntity implements SpecialBloc
 
 
 
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean addToGoggleTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
         if (isPlayerSneaking && addressing != null) {

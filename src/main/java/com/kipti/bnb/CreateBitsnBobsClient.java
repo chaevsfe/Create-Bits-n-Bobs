@@ -18,7 +18,10 @@ import com.kipti.bnb.registry.content.BnbBlockEntities;
 import com.kipti.bnb.content.kinetics.cogwheel_chain.render.CogwheelChainLevelRenderer;
 import com.kipti.bnb.content.kinetics.gigantic_cogwheel.GiganticCogwheelRenderer;
 import com.kipti.bnb.content.trinkets.light.headlamp.rendering.pipeline.block_entity.HeadlampVertexBufferCache;
+import com.kipti.bnb.registry.content.blocks.BnbTrinketBlocks;
+import com.kipti.bnb.registry.content.blocks.deco.BnbDecorativeBlocks;
 import com.zurrtum.create.client.catnip.render.SuperByteBufferCache;
+import com.zurrtum.create.client.foundation.item.ItemDescription;
 import com.zurrtum.create.client.ponder.foundation.PonderIndex;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -42,6 +45,8 @@ public final class CreateBitsnBobsClient {
         BnbClientEvents.register();
         BnbTooltipBehaviours.register();
         BnbTooltipModifiers.register();
+        ItemDescription.useKey(BnbDecorativeBlocks.WEATHERED_GIRDER_STRUT.get(), "block.bits_n_bobs.girder_strut");
+        BnbTrinketBlocks.CHAIRS.forEach(chair -> ItemDescription.useKey(chair.get(), "block.bits_n_bobs.chair"));
         BnbAudioBehaviours.register();
 
         SuperByteBufferCache.getInstance().registerCompartment(GiganticCogwheelRenderer.GIGANTIC_COGWHEEL_CACHE);
