@@ -16,6 +16,7 @@
     "ServerGamePacketListenerImplAccessor",
     "SmartBlockEntityMixin",
     "StructureTransformMixin",
+    "datafix.DataFixersMixin",
     "dyeable.create_blocks.BlockItemMixin",
     "dyeable.fluid_tank.ConnectivityHandlerMixin",
     "dyeable.fluid_tank.FluidTankBlockEntityMixin",
