@@ -1,6 +1,7 @@
 package com.kipti.bnb.content.kinetics.gigantic_cogwheel;
 
 import com.kipti.bnb.foundation.client.BnbClientHooks;
+import com.kipti.bnb.foundation.data.SavedBlockStates;
 import com.zurrtum.create.content.kinetics.base.IRotate;
 import com.zurrtum.create.content.kinetics.base.KineticBlockEntity;
 import com.zurrtum.create.content.kinetics.simpleRelays.ICogWheel;
@@ -204,7 +205,7 @@ public class GiganticCogwheelBlockEntity extends KineticBlockEntity {
 
         BlockState prevMaterial = this.material;
         if (compound.read("Material", CompoundTag.CODEC).isPresent()) {
-            this.material = NbtUtils.readBlockState(this.blockHolderGetter(), compound.read("Material", CompoundTag.CODEC).orElseGet(CompoundTag::new));
+            this.material = SavedBlockStates.read(this.blockHolderGetter(), compound.read("Material", CompoundTag.CODEC).orElseGet(CompoundTag::new));
             if (this.material.isAir())
                 this.material = Blocks.SPRUCE_PLANKS.defaultBlockState();
             if (clientPacket && prevMaterial != this.material) {

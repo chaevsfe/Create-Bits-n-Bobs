@@ -1,6 +1,7 @@
 package com.kipti.bnb.content.decoration.cogwheel_material;
 
 import com.kipti.bnb.foundation.behaviour.SuperBlockEntityBehaviour;
+import com.kipti.bnb.foundation.data.SavedBlockStates;
 import com.zurrtum.create.foundation.blockEntity.SmartBlockEntity;
 import com.zurrtum.create.foundation.blockEntity.behaviour.BehaviourType;
 import net.minecraft.core.HolderLookup;
@@ -94,7 +95,7 @@ public class CogwheelMaterialBehaviour extends SuperBlockEntityBehaviour {
         if (compound.read("Material", CompoundTag.CODEC).isEmpty())
             return;
 
-        this.material = NbtUtils.readBlockState(this.blockEntity.blockHolderGetter(), compound.read("Material", CompoundTag.CODEC).orElseGet(CompoundTag::new));
+        this.material = SavedBlockStates.read(this.blockEntity.blockHolderGetter(), compound.read("Material", CompoundTag.CODEC).orElseGet(CompoundTag::new));
         if (this.material.isAir())
             this.material = Blocks.SPRUCE_PLANKS.defaultBlockState();
 
