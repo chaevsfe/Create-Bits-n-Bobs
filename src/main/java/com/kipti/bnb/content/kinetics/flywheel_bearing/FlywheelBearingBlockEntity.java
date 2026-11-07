@@ -1,6 +1,10 @@
 package com.kipti.bnb.content.kinetics.flywheel_bearing;
 
 import com.kipti.bnb.foundation.config.BnbServerSettings;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
+import net.fabricmc.api.EnvironmentInterface;
+import net.fabricmc.api.EnvironmentInterfaces;
 import net.minecraft.world.level.storage.ValueInput;
 import com.kipti.bnb.foundation.client.BnbClientHooks;
 import com.zurrtum.create.client.api.goggles.IHaveHoveringInformation;
@@ -42,6 +46,11 @@ import java.util.List;
 /**
  * Predominantly a copy of BearingBlockEntity with many adjustments and features cut for flywheel bearing behavior
  */
+@EnvironmentInterfaces({
+        @EnvironmentInterface(value = EnvType.CLIENT, itf = IDisplayAssemblyExceptions.class),
+        @EnvironmentInterface(value = EnvType.CLIENT, itf = IHaveGoggleInformation.class),
+        @EnvironmentInterface(value = EnvType.CLIENT, itf = IHaveHoveringInformation.class)
+})
 public class FlywheelBearingBlockEntity extends GeneratingKineticBlockEntity implements IControlContraption, IDisplayAssemblyExceptions, IHaveGoggleInformation, IHaveHoveringInformation {
 
     public static final String TOOLTIP_FORMAT = "tooltip.bits_n_bobs.flywheel_bearing.%s";
@@ -64,6 +73,7 @@ public class FlywheelBearingBlockEntity extends GeneratingKineticBlockEntity imp
         this.lazyTickRate = 5;
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean addToGoggleTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
         //Debug tooltips
@@ -151,6 +161,7 @@ public class FlywheelBearingBlockEntity extends GeneratingKineticBlockEntity imp
         return true;
     }
 
+    @Environment(EnvType.CLIENT)
     private void addGenerationAsZeroIfNeeded(final List<Component> tooltip) {
         if (!IRotate.StressImpact.isEnabled() || !BnbServerSettings.flywheelStorageCapability())
             return;
@@ -395,6 +406,7 @@ public class FlywheelBearingBlockEntity extends GeneratingKineticBlockEntity imp
                                                           .getAxis());
     }
 
+    @Environment(EnvType.CLIENT)
     @Override
     public boolean addToTooltip(final List<Component> tooltip, final boolean isPlayerSneaking) {
         if (IHaveHoveringInformation.super.addToTooltip(tooltip, isPlayerSneaking))

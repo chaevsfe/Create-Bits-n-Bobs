@@ -19,9 +19,7 @@ import com.kipti.bnb.registrate.BnbBuilderHooks;
 import com.zurrtum.create.client.foundation.block.connected.SimpleCTBehaviour;
 import com.kipti.bnb.foundation.data.SharedProperties;
 import com.kipti.bnb.foundation.data.TagGen;
-import com.zurrtum.create.client.foundation.item.ItemDescription;
 import com.kipti.bnb.registrate.entry.BlockEntry;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -69,10 +67,6 @@ public class BnbDecorativeBlocks {
             .properties(p -> p.noOcclusion())
             
             
-            .onRegisterAfter(
-                    Registries.ITEM,
-                    v -> ItemDescription.useKey(v, "block.bits_n_bobs.girder_strut")
-            )
             .tag(AllBlockTags.SAFE_NBT)
             .item(StrutBlockItem::new)
             
