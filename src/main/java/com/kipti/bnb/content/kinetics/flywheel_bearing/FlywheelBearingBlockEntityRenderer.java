@@ -49,10 +49,9 @@ public class FlywheelBearingBlockEntityRenderer
         // skips its whole extraction when visualization is on, so the kinetic state is filled in here instead.
         state.support = false;
         updateBaseRenderState(be, state, level, crumblingOverlay);
-        state.angle = getAngleForBe(be, state.blockPos, state.axis);
+        state.angle = getDegrees(state.axis, be, state, level);
         state.model = getRotatedModel(be, state)
                 .cardinalLighting(state.cardinalLighting)
-                .rotateCentered(state.angle, state.direction)
                 .light(state.lightCoords)
                 .color(state.color)
                 .extractRenderState();
@@ -73,9 +72,9 @@ public class FlywheelBearingBlockEntityRenderer
             SubmitNodeCollector queue,
             CameraRenderState cameraState
     ) {
-        super.submit(state, matrices, queue, cameraState);
         if (state.top != null)
             state.top.submit(matrices, queue);
+        super.submit(state, matrices, queue, cameraState);
     }
 
     @Override

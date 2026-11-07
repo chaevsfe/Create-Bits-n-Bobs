@@ -117,9 +117,9 @@ public class BnbEncasedFlangedCogRenderer
             final SubmitNodeCollector queue,
             final CameraRenderState cameraState
     ) {
-        super.submit(state, matrices, queue, cameraState);
         for (final SuperByteBufferRenderState shaft : state.shafts)
             shaft.submit(matrices, queue);
+        super.submit(state, matrices, queue, cameraState);
     }
 
     @Override
