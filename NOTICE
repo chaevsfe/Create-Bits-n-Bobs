@@ -1,7 +1,7 @@
 Create Fly: Bits n Bobs (Unofficial Port)
 =========================================
 
-This is an unofficial port of Create: Bits 'n' Bobs to Fabric for Minecraft 26.2,
+This is an unofficial port of Create: Bits 'n' Bobs to Fabric for Minecraft 26.3,
 built against Create Fly (ZurrTum's Fabric build of Create). It is not made,
 endorsed or supported by the upstream authors.
 
@@ -29,9 +29,8 @@ under the same declared MIT grant. Upstream's `vault/` directory of loose source
 art is not part of this port.
 
 The iron encased shaft templates `models/block/encased_shaft/block.json` and
-`item.json` in the built-in `fly_6092_encased_shaft` resource pack, enabled
-only with Create Fly 6.0.9-2 or newer, were authored for this port and are
-released under the same MIT terms.
+`item.json` in the built-in `fly_6092_encased_shaft` resource pack were
+authored for this port and are released under the same MIT terms.
 
 Port-specific code
 ------------------
