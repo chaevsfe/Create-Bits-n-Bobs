@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:calcite_tile_stairs_from_stone_types_calcite_stonecutting"
+        "recipes": "bits_n_bobs:calcite_tile_stairs_from_stone_types_calcite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

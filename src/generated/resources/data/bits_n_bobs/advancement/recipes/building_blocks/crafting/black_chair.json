@@ -9,7 +9,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:crafting/black_chair"
+        "recipes": "bits_n_bobs:crafting/black_chair"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

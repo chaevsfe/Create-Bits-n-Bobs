@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:crafting/white_chair_from_other_chair"
+        "recipes": "bits_n_bobs:crafting/white_chair_from_other_chair"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

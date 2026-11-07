@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:asurine_tile_stairs_from_stone_types_asurine_stonecutting"
+        "recipes": "bits_n_bobs:asurine_tile_stairs_from_stone_types_asurine_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:asurine_tile_stairs"
+        "recipes": "bits_n_bobs:asurine_tile_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

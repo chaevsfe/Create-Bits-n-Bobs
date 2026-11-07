@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:scorchia_tile_stairs_from_stone_types_scorchia_stonecutting"
+        "recipes": "bits_n_bobs:scorchia_tile_stairs_from_stone_types_scorchia_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

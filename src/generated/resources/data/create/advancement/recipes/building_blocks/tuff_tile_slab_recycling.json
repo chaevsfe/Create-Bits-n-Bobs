@@ -9,7 +9,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "create:tuff_tile_slab_recycling"
+        "recipes": "create:tuff_tile_slab_recycling"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:granite_tiles_from_stone_types_granite_stonecutting"
+        "recipes": "bits_n_bobs:granite_tiles_from_stone_types_granite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:dripstone_block_from_stone_types_dripstone_stonecutting"
+        "recipes": "bits_n_bobs:dripstone_block_from_stone_types_dripstone_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

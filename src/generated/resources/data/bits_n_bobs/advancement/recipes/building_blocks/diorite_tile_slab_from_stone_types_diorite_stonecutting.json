@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:diorite_tile_slab_from_stone_types_diorite_stonecutting"
+        "recipes": "bits_n_bobs:diorite_tile_slab_from_stone_types_diorite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

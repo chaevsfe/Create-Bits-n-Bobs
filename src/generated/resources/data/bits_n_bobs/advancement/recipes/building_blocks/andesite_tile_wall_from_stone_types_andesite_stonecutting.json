@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:andesite_tile_wall_from_stone_types_andesite_stonecutting"
+        "recipes": "bits_n_bobs:andesite_tile_wall_from_stone_types_andesite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

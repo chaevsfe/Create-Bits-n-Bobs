@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:crimsite_tile_wall_from_stone_types_crimsite_stonecutting"
+        "recipes": "bits_n_bobs:crimsite_tile_wall_from_stone_types_crimsite_stonecutting"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

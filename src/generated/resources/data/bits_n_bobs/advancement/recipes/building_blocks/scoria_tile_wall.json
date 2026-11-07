@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:scoria_tile_wall"
+        "recipes": "bits_n_bobs:scoria_tile_wall"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

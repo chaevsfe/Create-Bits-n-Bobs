@@ -9,7 +9,7 @@
   "criteria": {
     "has_the_recipe": {
       "conditions": {
-        "recipe": "bits_n_bobs:veridium_tile_stairs"
+        "recipes": "bits_n_bobs:veridium_tile_stairs"
       },
       "trigger": "minecraft:recipe_unlocked"
     },

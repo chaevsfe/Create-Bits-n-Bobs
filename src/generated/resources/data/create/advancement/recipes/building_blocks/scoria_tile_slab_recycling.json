@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "create:scoria_tile_slab_recycling"
+        "recipes": "create:scoria_tile_slab_recycling"
       },
       "trigger": "minecraft:recipe_unlocked"
     }

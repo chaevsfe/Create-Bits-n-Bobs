@@ -19,7 +19,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "create:asurine_tile_slab_recycling"
+        "recipes": "create:asurine_tile_slab_recycling"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
