@@ -72,7 +72,7 @@ public class CogwheelMaterialBehaviour extends SuperBlockEntityBehaviour {
             return InteractionResult.SUCCESS;
         this.material = material;
         this.blockEntity.notifyUpdate();
-        this.getLevel().levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, this.getPos(), Block.getId(material));
+        this.getLevel().levelEvent(LevelEvent.PARTICLES_AND_SOUND_DESTROY_BLOCK, this.getPos(), Block.getId(material));
         return InteractionResult.SUCCESS;
     }
 

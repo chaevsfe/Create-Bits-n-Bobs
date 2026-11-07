@@ -84,7 +84,7 @@ public class TrussFluidPipeBlock extends AxisPipeBlock implements IBE<TrussFluid
             return InteractionResult.SUCCESS;
 
         context.getLevel()
-                .levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, context.getClickedPos(), Block.getId(state));
+                .levelEvent(LevelEvent.PARTICLES_AND_SOUND_DESTROY_BLOCK, context.getClickedPos(), Block.getId(state));
         final Direction.Axis axis = state.getValue(AXIS);
         final Direction positiveFacing = Direction.fromAxisAndDirection(axis, Direction.AxisDirection.POSITIVE);
         final Direction negativeFacing = Direction.fromAxisAndDirection(axis, Direction.AxisDirection.NEGATIVE);

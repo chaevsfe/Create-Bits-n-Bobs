@@ -57,7 +57,7 @@ public class GiganticCogwheelBlockEntity extends KineticBlockEntity {
             return InteractionResult.SUCCESS;
         this.material = material;
         this.notifyUpdate();
-        this.level.levelEvent(LevelEvent.PARTICLES_DESTROY_BLOCK, this.worldPosition, Block.getId(material));
+        this.level.levelEvent(LevelEvent.PARTICLES_AND_SOUND_DESTROY_BLOCK, this.worldPosition, Block.getId(material));
         return InteractionResult.SUCCESS;
     }
 
