@@ -13,13 +13,13 @@ public final class SavedBlockStates {
     }
 
     public static BlockState read(final HolderGetter<Block> blocks, final CompoundTag saved) {
-        return NbtUtils.readBlockState(blocks, saved.contains("Name") && !saved.contains("id") ? renamed(saved) : saved);
+        return NbtUtils.readBlockState(blocks, saved.contains("Name") ? renamed(saved) : saved);
     }
 
     private static CompoundTag renamed(final CompoundTag saved) {
-        final CompoundTag tag = saved.copy();
-        tag.put("id", tag.remove("Name"));
-        final Tag properties = tag.remove("Properties");
+        final CompoundTag tag = new CompoundTag();
+        tag.put("id", saved.get("Name"));
+        final Tag properties = saved.get("Properties");
         if (properties != null)
             tag.put("properties", properties);
         return tag;
