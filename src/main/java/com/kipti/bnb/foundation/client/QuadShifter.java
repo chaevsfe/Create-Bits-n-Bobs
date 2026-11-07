@@ -70,7 +70,8 @@ public final class QuadShifter {
 
         BakedQuad.MaterialInfo info = quad.materialInfo();
         BakedQuad.MaterialInfo shifted = new BakedQuad.MaterialInfo(
-                target, info.layer(), info.itemRenderType(), info.tintIndex(), info.shade(), info.lightEmission());
+                target, info.layer(), info.itemRenderType(), info.itemGlintRenderType(), info.itemGlintSpecialRenderType(),
+                info.tintIndex(), info.shadeDirectionOverride(), info.lightEmission());
 
         return BakedModelHelper.replaceBakedQuadUV(
                 quad,
