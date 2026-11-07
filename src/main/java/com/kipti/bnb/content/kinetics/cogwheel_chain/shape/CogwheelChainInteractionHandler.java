@@ -170,7 +170,7 @@ public final class CogwheelChainInteractionHandler {
         ms.translate(-camera.x, -camera.y, -camera.z);
         context.submitNodeCollector().submitCustomGeometry(
                 ms,
-                RenderTypes.lines(),
+                mc.gameRenderer.useImprovedTransparency() ? RenderTypes.linesTranslucentNoDepthWrite() : RenderTypes.linesTranslucent(),
                 (pose, consumer) -> shape.drawOutline(pose, consumer, coordinateSpace::toWorld)
         );
         ms.popPose();
