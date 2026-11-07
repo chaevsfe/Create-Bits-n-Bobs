@@ -23,7 +23,7 @@ public class ServerEntityMixin {
     @Final
     private Entity entity;
 
-    @WrapOperation(method = "sendChanges", at = @At(value = "INVOKE", ordinal = 3, target = "Lnet/minecraft/server/level/ServerEntity$Synchronizer;sendToTrackingPlayers(Lnet/minecraft/network/protocol/Packet;)V"))
+    @WrapOperation(method = "sendChanges", at = @At(value = "INVOKE", ordinal = 4, target = "Lnet/minecraft/server/level/ServerEntity$Synchronizer;sendToTrackingPlayers(Lnet/minecraft/network/protocol/Packet;)V"))
     private void bits_n_bobs$suppressCarriagePositionSync(final ServerEntity.Synchronizer instance, final Packet<?> packet, final Operation<Void> original) {
         if (this.entity instanceof CogwheelChainCarriageContraptionEntity) {
             return;
