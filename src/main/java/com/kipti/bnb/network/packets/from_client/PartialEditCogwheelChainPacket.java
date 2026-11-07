@@ -22,6 +22,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -314,7 +315,8 @@ public record PartialEditCogwheelChainPacket(
             return;
 
         player.getInventory().placeItemBackInInventory(
-                chainItem.getDefaultInstance().copyWithCount(chainsToRefund)
+                chainItem.getDefaultInstance().copyWithCount(chainsToRefund),
+                Prediction.SERVER_ONLY
         );
     }
 

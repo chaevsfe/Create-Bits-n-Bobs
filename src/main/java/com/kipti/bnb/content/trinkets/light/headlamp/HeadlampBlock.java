@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Prediction;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResult;
@@ -204,7 +205,7 @@ public class HeadlampBlock extends LightBlock implements IBE<HeadlampBlockEntity
             return InteractionResult.SUCCESS;
 
         if (!player.isCreative()) {
-            Block.getDrops(state, serverLevel, pos, world.getBlockEntity(pos), player, context.getItemInHand()).forEach(itemStack -> player.getInventory().placeItemBackInInventory(itemStack));
+            Block.getDrops(state, serverLevel, pos, world.getBlockEntity(pos), player, context.getItemInHand()).forEach(itemStack -> player.getInventory().placeItemBackInInventory(itemStack, Prediction.SERVER_ONLY));
         }
 
         state.spawnAfterBreak(serverLevel, pos, ItemStack.EMPTY, true);
