@@ -24,15 +24,6 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.Nullable;
 
-/**
- * Tracks which point of which chain the player is pointing at, and draws that selection.
- * <p>
- * Upstream ran this from {@code ClientTickEvent.Post}, {@code RenderLevelStageEvent} and
- * {@code RenderHighlightEvent.Block}. On 26.2 the selection is ticked from
- * {@code ClientTickEvents.END_CLIENT_TICK} and both the custom outline and the suppression of the
- * vanilla block highlight happen in one {@code LevelRenderEvents.BEFORE_BLOCK_OUTLINE} listener,
- * which fires every frame whether or not a block is targeted.
- */
 @Environment(EnvType.CLIENT)
 public final class CogwheelChainInteractionHandler {
 
