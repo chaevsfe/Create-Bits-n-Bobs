@@ -22,15 +22,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.Level;
 
-/**
- * The client half of the interactions upstream drove from NeoForge's client event bus.
- * <p>
- * {@code ClientTickEvent.Post} becomes {@code ClientTickEvents.END_CLIENT_TICK};
- * {@code InputEvent.InteractionKeyMappingTriggered} becomes {@code UseBlockCallback} plus
- * {@code UseItemCallback}, which between them cover a right click with and without a targeted block;
- * {@code RenderHighlightEvent.Block} and the chain's own selection outline both become one
- * {@code LevelRenderEvents.BEFORE_BLOCK_OUTLINE} listener.
- */
 @Environment(EnvType.CLIENT)
 public final class BnbClientEvents {
 
