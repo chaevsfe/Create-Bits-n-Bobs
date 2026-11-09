@@ -1,5 +1,8 @@
 {
   "values": [
-    "bits_n_bobs:throttle_lever"
+    {
+      "id": "bits_n_bobs:throttle_lever",
+      "required": false
+    }
   ]
 }
