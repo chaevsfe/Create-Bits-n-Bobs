@@ -40,6 +40,12 @@ under `com.kipti.bnb.foundation.behaviour`, the Sable Companion stand-ins under
 `com.kipti.bnb.network` were written for this port and are released under the
 same MIT terms.
 
+NumberFormats (`com.kipti.bnb.foundation.data`) and
+SimpleBlockEntityVisualFactory (`com.kipti.bnb.utility`) come from Create:
+Power Grid, Copyright 2025 patryk3211 (https://github.com/patryk3211/PowerGrid),
+licensed under the Apache License 2.0 and modified by chaevsfe; the Apache
+licence text is included as `licenses/PowerGrid-LICENSE`.
+
 The encased cogwheel visual and renderers under
 `com.kipti.bnb.content.kinetics.encased_blocks.cogwheel` (`BnbEncasedCogVisual`,
 `BnbEncasedSmallCogRenderer`, `BnbEncasedLargeCogRenderer`) are adapted from
