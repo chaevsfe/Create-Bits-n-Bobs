@@ -170,11 +170,13 @@ tasks.processResources {
 tasks.jar {
     from("LICENSE")
     from("NOTICE")
+    from("licenses") { into("licenses") }
 }
 
 tasks.named<Jar>("sourcesJar") {
     from("LICENSE")
     from("NOTICE")
+    from("licenses") { into("licenses") }
 }
 
 val ownCodePrefix = "com/kipti/bnb/"
@@ -185,6 +187,7 @@ val allowedResourcePrefixes = listOf(
     "META-INF/",
     "LICENSE",
     "NOTICE",
+    "licenses/",
     "bits_n_bobs.accesswidener",
     "bits_n_bobs.mixins.json",
     "bits_n_bobs.client.mixins.json",

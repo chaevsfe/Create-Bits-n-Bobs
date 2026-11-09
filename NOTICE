@@ -1,7 +1,7 @@
 Create Fly: Bits n Bobs (Unofficial Port)
 =========================================
 
-This is an unofficial port of Create: Bits 'n' Bobs to Fabric for Minecraft 26.2,
+This is an unofficial port of Create: Bits 'n' Bobs to Fabric for Minecraft 26.1,
 built against Create Fly (ZurrTum's Fabric build of Create). It is not made,
 endorsed or supported by the upstream authors.
 
@@ -35,3 +35,9 @@ under `com.kipti.bnb.foundation.behaviour`, the Sable Companion stand-ins under
 `com.kipti.bnb.compat.sable` and the networking layer under
 `com.kipti.bnb.network` were written for this port and are released under the
 same MIT terms.
+
+NumberFormats (`com.kipti.bnb.foundation.data`) and
+SimpleBlockEntityVisualFactory (`com.kipti.bnb.utility`) come from Create:
+Power Grid, Copyright 2025 patryk3211 (https://github.com/patryk3211/PowerGrid),
+licensed under the Apache License 2.0 and modified by chaevsfe; the Apache
+licence text is included as `licenses/PowerGrid-LICENSE`.
