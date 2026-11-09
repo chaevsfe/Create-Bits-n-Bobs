@@ -34,7 +34,14 @@ The registration layer under `com.kipti.bnb.registrate`, the behaviour layer
 under `com.kipti.bnb.foundation.behaviour`, the Sable Companion stand-ins under
 `com.kipti.bnb.compat.sable` and the networking layer under
 `com.kipti.bnb.network` were written for this port and are released under the
-same MIT terms.
+same MIT terms, except the files headed `Copyright 2026 chaevsfe`.
+
+The 25 files headed `Copyright 2026 chaevsfe` were written for this port and
+are licensed under the Apache License 2.0, as their headers state: 21 files in
+`com.kipti.bnb.registrate`, `CreateTags`, `SharedProperties` and `TagGen`
+(`com.kipti.bnb.foundation.data`) and `SimpleEntityVisualFactory`
+(`com.kipti.bnb.utility`). The Apache licence text is included as
+`licenses/PowerGrid-LICENSE`.
 
 NumberFormats (`com.kipti.bnb.foundation.data`) and
 SimpleBlockEntityVisualFactory (`com.kipti.bnb.utility`) come from Create:
